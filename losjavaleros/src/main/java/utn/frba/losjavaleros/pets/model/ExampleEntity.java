@@ -1,4 +1,4 @@
-package utn.frba.losjavaleros.pets.controller.model;
+package utn.frba.losjavaleros.pets.model;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Getter
 @Setter
-@Table(name = "dealers")
+@Table(name = "tableName")
 public class ExampleEntity {
 
   @Id
