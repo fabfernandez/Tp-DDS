@@ -39,8 +39,8 @@ public class UserController {
   public ResponseEntity registrate(@RequestBody UserDto userDto) {
     try {
       User user = new User();
-      user.setUsername("username");
-      user.setPassword("password");
+      user.setUsername(userDto.getMainContact().getEmail());
+      user.setPassword(userDto.getPassword());
       userRepository.addUser(user);
     } catch (InvalidPasswordException e) {
       return ResponseEntity.notFound().build();
@@ -52,7 +52,7 @@ public class UserController {
 
   @PostMapping("/login")
   public ResponseEntity<String> login(@RequestBody LoginDto loginDto) {
-    return ResponseEntity.ok("User registered.");
+    return ResponseEntity.ok("Log in successful.");
 
   }
 }
