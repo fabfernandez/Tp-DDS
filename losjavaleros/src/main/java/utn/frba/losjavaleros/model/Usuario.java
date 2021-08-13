@@ -1,6 +1,5 @@
 package utn.frba.losjavaleros.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,7 +14,7 @@ import java.util.Collection;
 @Setter
 @NoArgsConstructor
 
-public class User {
+public class Usuario {
 
     private Long dni;
     private String username;
@@ -26,7 +25,8 @@ public class User {
 
     private Collection<Role> roles;
 
-    public User(Long dni, String firstName, String lastName, String email, String password, Collection<Role> roles) throws InvalidPasswordException {
+    public Usuario(Long dni, String firstName, String lastName, String email, String password, Collection<Role> roles)
+        throws InvalidPasswordException {
         this.dni = dni;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -36,7 +36,6 @@ public class User {
     }
 
     public void setPassword(String password) throws InvalidPasswordException {
-
 
         RuleResult validate = PasswordValidatorSingleton.getInstance().validate(this.username, password);
         if(validate.isValid()) {

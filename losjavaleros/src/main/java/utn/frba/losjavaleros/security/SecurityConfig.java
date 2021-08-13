@@ -28,8 +28,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         @Autowired
         private WebApplicationContext applicationContext;
 
-
-
         private CustomUserDetailService userDetailsService;
 
         @PostConstruct

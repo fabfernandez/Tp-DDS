@@ -1,22 +1,12 @@
 package utn.frba.losjavaleros.security;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import org.passay.*;
-import org.passay.dictionary.ArrayWordList;
 import org.passay.dictionary.WordListDictionary;
 import org.passay.dictionary.WordLists;
 import org.passay.dictionary.sort.ArraysSort;
-import utn.frba.losjavaleros.helpers.JsonHelper;
-import utn.frba.losjavaleros.model.User;
 
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 
 public class PasswordValidatorSingleton
 {

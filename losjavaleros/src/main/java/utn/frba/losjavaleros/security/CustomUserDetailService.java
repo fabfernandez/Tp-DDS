@@ -6,8 +6,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.WebApplicationContext;
-import utn.frba.losjavaleros.model.User;
-import utn.frba.losjavaleros.repository.UserRepository;
+import utn.frba.losjavaleros.model.Usuario;
+import utn.frba.losjavaleros.repository.UsuarioRepository;
 
 import javax.annotation.PostConstruct;
 
@@ -17,16 +17,16 @@ public class CustomUserDetailService implements UserDetailsService {
     @Autowired
     private WebApplicationContext applicationContext;
 
-    private UserRepository userRepository;
+    private UsuarioRepository usuarioRepository;
 
     @PostConstruct
     public void completeSetup() {
-        userRepository = applicationContext.getBean(UserRepository.class);
+        usuarioRepository = applicationContext.getBean(UsuarioRepository.class);
     }
 
     @Override
     public UserDetails loadUserByUsername(final String username) {
-        final User appUser = userRepository.findByUsername(username);
+        final Usuario appUser = usuarioRepository.findByUsername(username);
         if (appUser == null) {
             throw new UsernameNotFoundException(username);
         }

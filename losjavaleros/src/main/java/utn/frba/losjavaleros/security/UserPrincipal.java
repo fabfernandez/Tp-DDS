@@ -4,7 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import utn.frba.losjavaleros.model.Role;
-import utn.frba.losjavaleros.model.User;
+import utn.frba.losjavaleros.model.Usuario;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class UserPrincipal implements UserDetails {
-    private User user;
-    public UserPrincipal(User user) {
+    private Usuario user;
+    public UserPrincipal(Usuario user) {
         this.user = user;
     }
 

@@ -3,30 +3,29 @@ package utn.frba.losjavaleros.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import utn.frba.losjavaleros.dto.LoginDto;
-import utn.frba.losjavaleros.dto.UserDto;
-import utn.frba.losjavaleros.model.User;
+import utn.frba.losjavaleros.dto.UsuarioDto;
+import utn.frba.losjavaleros.model.Usuario;
 import utn.frba.losjavaleros.model.exception.InvalidPasswordException;
-import utn.frba.losjavaleros.repository.UserRepository;
+import utn.frba.losjavaleros.repository.UsuarioRepository;
 
 import java.util.Map;
 
 @RestController
 public class UserController {
 
-  final UserRepository userRepository;
+  final UsuarioRepository usuarioRepository;
 
-  public UserController(final UserRepository userRepository) {
-    this.userRepository = userRepository;
+  public UserController(final UsuarioRepository usuarioRepository) {
+    this.usuarioRepository = usuarioRepository;
   }
 
   @PostMapping("/validate")
   public String validate(@RequestBody Map<String, String> body) {
     try {
-      User user = new User();
+      Usuario user = new Usuario();
       user.setUsername("username");
       user.setPassword("password");
-      userRepository.addUser(user);
+      usuarioRepository.addUser(user);
     } catch (InvalidPasswordException e) {
       return e.getMessage();
 
@@ -35,24 +34,19 @@ public class UserController {
 
   }
 
-  @PostMapping("/registrate")
-  public ResponseEntity registrate(@RequestBody UserDto userDto) {
+  @PostMapping("/registrarse")
+  public ResponseEntity registrate(@RequestBody UsuarioDto usuarioDto) {
     try {
-      User user = new User();
-      user.setUsername(userDto.getMainContact().getEmail());
-      user.setPassword(userDto.getPassword());
-      userRepository.addUser(user);
+      Usuario user = new Usuario();
+      user.setUsername(usuarioDto.getMainContact().getEmail());
+      user.setPassword(usuarioDto.getPassword());
+      usuarioRepository.addUser(user);
     } catch (InvalidPasswordException e) {
-      return ResponseEntity.notFound().build();
+      return ResponseEntity.badRequest().build();
 
     }
     return ResponseEntity.ok("User registered.");
 
   }
 
-  @PostMapping("/login")
-  public ResponseEntity<String> login(@RequestBody LoginDto loginDto) {
-    return ResponseEntity.ok("Log in successful.");
-
-  }
 }

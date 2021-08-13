@@ -3,7 +3,7 @@ package utn.frba.losjavaleros.repository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.stereotype.Repository;
 import utn.frba.losjavaleros.helpers.JsonHelper;
-import utn.frba.losjavaleros.model.User;
+import utn.frba.losjavaleros.model.Usuario;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
@@ -12,23 +12,23 @@ import java.nio.file.Paths;
 import java.util.List;
 
 @Repository
-public class UserRepository {
+public class UsuarioRepository {
 
-    private List<User> users;
+    private List<Usuario> users;
     @PostConstruct
     public void init() throws IOException {
         String file = "Users.json";
         String json = new String(Files.readAllBytes(Paths.get(file)));
-        TypeReference typeReference = new TypeReference<List<User>>() {
+        TypeReference typeReference = new TypeReference<List<Usuario>>() {
         };
-        users = (List<User>) JsonHelper.parse(json, typeReference);
+        users = (List<Usuario>) JsonHelper.parse(json, typeReference);
 
     }
 
-    public User findByUsername(String username) {
+    public Usuario findByUsername(String username) {
         return users.stream().filter(user -> user.getUsername().equals(username) ).findFirst().orElse(null);
     }
-    public void addUser(User user){
+    public void addUser(Usuario user){
         users.add(user);
     }
 }
