@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import utn.frba.losjavaleros.dto.MascotaDto;
 import utn.frba.losjavaleros.model.Caracteristica;
+import utn.frba.losjavaleros.model.CaracteristicaCompleta;
 import utn.frba.losjavaleros.model.Mascota;
 import utn.frba.losjavaleros.model.Sexo;
 import utn.frba.losjavaleros.model.Usuario;
@@ -25,8 +26,12 @@ public class MascotaService {
 
     Usuario duenioVacio = new Usuario();
 
-    //Traer caracteristicas de base de datos
-    List<Caracteristica> caracteristicas = List.of(new Caracteristica("Color principal", "input"));
+    //Traer caracteristicas de base de datos por id
+    Caracteristica caracteristicaDeBaseDeDatos = new Caracteristica("Color principal", "input");
+
+    //insertar respuestas del usuario
+    List<CaracteristicaCompleta> caracteristicas =
+        List.of(new CaracteristicaCompleta(caracteristicaDeBaseDeDatos, "Rosa"));
 
     //crear fotos???
 

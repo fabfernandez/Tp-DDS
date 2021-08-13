@@ -2,9 +2,11 @@ package utn.frba.losjavaleros.dto;
 
 import java.util.List;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class MascotaDto {
 
   private String nombre;
@@ -14,6 +16,6 @@ public class MascotaDto {
   private String sexo;
   private String descripcion;
   private List<String> fotos;
-  private List<CaracteristicaDto> caracteristicas;
+  private List<CaracteristicaCompletaDto> caracteristicas;
 }
 

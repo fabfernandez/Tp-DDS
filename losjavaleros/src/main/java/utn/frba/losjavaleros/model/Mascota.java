@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class Mascota {
   private Usuario duenio;
-  private List<Caracteristica> caracteristicas;
+  private List<CaracteristicaCompleta> caracteristicas;
   private String chapita;
   private String tipo;
   private String nombre;
@@ -17,7 +17,7 @@ public class Mascota {
   private String descripcion;
   private List<Foto> fotos;
 
-  public Mascota(final Usuario duenio, final List<Caracteristica> caracteristicas,
+  public Mascota(final Usuario duenio, final List<CaracteristicaCompleta> caracteristicas,
                  final String chapita,
                  final String tipo, final String nombre, final String apodo, final Integer edad, final Sexo sexo,
                  final String descripcion, final List<Foto> fotos) {
