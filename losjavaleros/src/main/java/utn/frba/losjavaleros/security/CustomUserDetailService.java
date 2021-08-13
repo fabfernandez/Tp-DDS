@@ -30,6 +30,6 @@ public class CustomUserDetailService implements UserDetailsService {
         if (appUser == null) {
             throw new UsernameNotFoundException(username);
         }
-        return new UserPrincipal(appUser);
+        return new UsuarioPrincipal(appUser);
     }
 }

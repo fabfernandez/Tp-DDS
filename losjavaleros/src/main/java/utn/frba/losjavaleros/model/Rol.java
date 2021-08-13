@@ -10,11 +10,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Role {
+public class Rol {
 
 
     private Long id;
 
-    private String name;
+    private String nombre;
 
 }

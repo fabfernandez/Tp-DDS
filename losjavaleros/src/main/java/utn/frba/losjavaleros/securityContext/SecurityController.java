@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class SecurityController {
 	
-	@RequestMapping(value = "/username", method = RequestMethod.GET)
+	@RequestMapping(value = "/usuario", method = RequestMethod.GET)
     @ResponseBody
-    public String currentUserName(Principal principal) {
+    public String usuarioActual(Principal principal) {
         return principal.getName();
     }
 

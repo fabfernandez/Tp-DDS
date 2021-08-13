@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         @Override
         protected void configure(final HttpSecurity http) throws Exception {
             http.authorizeRequests()
-                    .antMatchers("/validate")
+                    .antMatchers("/validar")
                     .permitAll()
                     .antMatchers("/*")
                     .authenticated()

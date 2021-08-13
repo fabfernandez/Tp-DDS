@@ -14,21 +14,21 @@ import java.util.List;
 @Repository
 public class UsuarioRepository {
 
-    private List<Usuario> users;
+    private List<Usuario> usuarios;
     @PostConstruct
     public void init() throws IOException {
         String file = "Users.json";
         String json = new String(Files.readAllBytes(Paths.get(file)));
         TypeReference typeReference = new TypeReference<List<Usuario>>() {
         };
-        users = (List<Usuario>) JsonHelper.parse(json, typeReference);
+        usuarios = (List<Usuario>) JsonHelper.parse(json, typeReference);
 
     }
 
-    public Usuario findByUsername(String username) {
-        return users.stream().filter(user -> user.getUsername().equals(username) ).findFirst().orElse(null);
+    public Usuario findByUsername(String usuario) {
+        return usuarios.stream().filter(user -> user.getUsuario().equals(usuario) ).findFirst().orElse(null);
     }
     public void addUser(Usuario user){
-        users.add(user);
+        usuarios.add(user);
     }
 }

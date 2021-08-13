@@ -11,20 +11,20 @@ import utn.frba.losjavaleros.repository.UsuarioRepository;
 import java.util.Map;
 
 @RestController
-public class UserController {
+public class UsuarioController {
 
   final UsuarioRepository usuarioRepository;
 
-  public UserController(final UsuarioRepository usuarioRepository) {
+  public UsuarioController(final UsuarioRepository usuarioRepository) {
     this.usuarioRepository = usuarioRepository;
   }
 
-  @PostMapping("/validate")
-  public String validate(@RequestBody Map<String, String> body) {
+  @PostMapping("/validar")
+  public String validar(@RequestBody Map<String, String> body) {
     try {
       Usuario user = new Usuario();
-      user.setUsername("username");
-      user.setPassword("password");
+      user.setUsuario("usuario");
+      user.setContrasenia("password");
       usuarioRepository.addUser(user);
     } catch (InvalidPasswordException e) {
       return e.getMessage();
@@ -38,14 +38,14 @@ public class UserController {
   public ResponseEntity registrate(@RequestBody UsuarioDto usuarioDto) {
     try {
       Usuario user = new Usuario();
-      user.setUsername(usuarioDto.getMainContact().getEmail());
-      user.setPassword(usuarioDto.getPassword());
+      user.setUsuario(usuarioDto.getContactoPrincipal().getEmail());
+      user.setContrasenia(usuarioDto.getContrasenia());
       usuarioRepository.addUser(user);
     } catch (InvalidPasswordException e) {
       return ResponseEntity.badRequest().build();
 
     }
-    return ResponseEntity.ok("User registered.");
+    return ResponseEntity.ok("Usuario registrado.");
 
   }
 

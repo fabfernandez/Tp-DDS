@@ -17,31 +17,31 @@ import java.util.Collection;
 public class Usuario {
 
     private Long dni;
-    private String username;
-    private String firstName;
-    private String lastName;
+    private String usuario;
+    private String nombre;
+    private String apellido;
     private String email;
-    private String password;
+    private String contrasenia;
 
-    private Collection<Role> roles;
+    private Collection<Rol> roles;
 
     //no borrar este constructor!
-    public Usuario(Long dni, String firstName, String lastName, String email, String password, Collection<Role> roles)
+    public Usuario(Long dni, String firstName, String lastName, String email, String contrasenia, Collection<Rol> roles)
         throws InvalidPasswordException {
         this.dni = dni;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.nombre = firstName;
+        this.apellido = lastName;
         this.email = email;
         this.roles = roles;
-        setPassword(password);
+        setContrasenia(contrasenia);
     }
 
-    public void setPassword(String password) throws InvalidPasswordException {
+    public void setContrasenia(String contrasenia) throws InvalidPasswordException {
 
-        RuleResult validate = PasswordValidatorSingleton.getInstance().validate(this.username, password);
+        RuleResult validate = PasswordValidatorSingleton.getInstance().validate(this.usuario, contrasenia);
         if(validate.isValid()) {
-            password = new BCryptPasswordEncoder().encode(password);
-            this.password = password;
+            contrasenia = new BCryptPasswordEncoder().encode(contrasenia);
+            this.contrasenia = contrasenia;
         }else
             throw new InvalidPasswordException(validate.getDetails().toString());
     }

@@ -5,6 +5,6 @@ import lombok.Getter;
 
 @Getter
 public class Contacto {
-  private Long phone;
+  private Long telefono;
   private String email;
 }
