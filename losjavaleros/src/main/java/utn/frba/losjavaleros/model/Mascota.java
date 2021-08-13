@@ -1,16 +1,14 @@
 package utn.frba.losjavaleros.model;
 
 import java.util.List;
-import java.util.UUID;
 
 import lombok.Data;
 
 @Data
 public class Mascota {
-  private String id;
   private Usuario duenio;
   private List<Caracteristica> caracteristicas;
-  private Chapita chapita;
+  private String chapita;
   private String tipo;
   private String nombre;
   private String apodo;
@@ -19,8 +17,10 @@ public class Mascota {
   private String descripcion;
   private List<Foto> fotos;
 
-  public Mascota(final Usuario duenio, final List<Caracteristica> caracteristicas, final Chapita chapita, final String tipo, final String nombre, final String apodo, final Integer edad, final Sexo sexo, final String descripcion, final List<Foto> fotos) {
-    this.id = UUID.randomUUID().toString();
+  public Mascota(final Usuario duenio, final List<Caracteristica> caracteristicas,
+                 final String chapita,
+                 final String tipo, final String nombre, final String apodo, final Integer edad, final Sexo sexo,
+                 final String descripcion, final List<Foto> fotos) {
     this.duenio = duenio;
     this.caracteristicas = caracteristicas;
     this.chapita = chapita;
