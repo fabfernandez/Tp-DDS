@@ -25,6 +25,7 @@ public class Usuario {
 
     private Collection<Role> roles;
 
+    //no borrar este constructor!
     public Usuario(Long dni, String firstName, String lastName, String email, String password, Collection<Role> roles)
         throws InvalidPasswordException {
         this.dni = dni;
