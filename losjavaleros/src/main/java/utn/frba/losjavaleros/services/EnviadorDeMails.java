@@ -1,23 +1,26 @@
 package utn.frba.losjavaleros.services;
 
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 
-@Service
+@Component
+@Log
 public class EnviadorDeMails {
 
     @Autowired
     private JavaMailSender enviadorMails;
 
-    public void enviarMail(String para, String asunto, String cuerpo) {
-        System.out.println("Enviando mail...");
+    public void enviarMail(String para, String asunto, String cuerpo) { 
+        log.info("Enviando mail...");
 
         try {
             enviarMailConAdjunto(para, asunto, cuerpo);
@@ -25,7 +28,7 @@ public class EnviadorDeMails {
             e.printStackTrace();
         }
 
-        System.out.println("Email sent.");
+        log.info("Email sent.");
     }
 
     private void enviarMailConAdjunto(String para, String asunto, String cuerpo) throws MessagingException, IOException {

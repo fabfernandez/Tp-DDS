@@ -3,26 +3,20 @@ package utn.frba.losjavaleros.services;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import utn.frba.losjavaleros.dto.MascotaDto;
-import utn.frba.losjavaleros.model.Caracteristica;
-import utn.frba.losjavaleros.model.CaracteristicaCompleta;
-import utn.frba.losjavaleros.model.Mascota;
-import utn.frba.losjavaleros.model.Sexo;
-import utn.frba.losjavaleros.model.Usuario;
+import utn.frba.losjavaleros.model.*;
 import utn.frba.losjavaleros.repository.MascotaRepository;
 
 @Service
 public class MascotaService {
 
-  private final MascotaRepository mascotaRepository;
+  @Autowired
+  private MascotaRepository mascotaRepository;
 
-  public MascotaService(final MascotaRepository mascotaRepository) {
-    this.mascotaRepository = mascotaRepository;
-  }
-
-  public ResponseEntity crearMascota(final MascotaDto mascotaDto, final Usuario duenio) {
+  public Mascota crearMascota(final MascotaDto mascotaDto, final Usuario duenio) {
 
     Usuario duenioVacio = new Usuario();
 
@@ -46,11 +40,15 @@ public class MascotaService {
         mascotaDto.getEdad(),
         Sexo.valueOf(mascotaDto.getSexo()),
         mascotaDto.getDescripcion(),
-        null);
+        null, MascotaEstadoEnum.valueOf(mascotaDto.getEstado()));
 
     //guardar mascota
     mascotaRepository.guardar(mascota);
 
-    return ResponseEntity.ok("ok");
+    return mascota;
+  }
+
+  public List<Mascota> filtrarMascotas(String estado){
+     return mascotaRepository.getMascotasEstado(estado);
   }
 }

@@ -23,7 +23,7 @@ public class UsuarioController {
   public String validar(@RequestBody Map<String, String> body) {
     try {
       Usuario user = new Usuario();
-      user.setUsuario("usuario");
+      user.setNombreUsuario("usuario");
       user.setContrasenia("password");
       usuarioRepository.addUser(user);
     } catch (InvalidPasswordException e) {
@@ -38,7 +38,7 @@ public class UsuarioController {
   public ResponseEntity registrate(@RequestBody UsuarioDto usuarioDto) {
     try {
       Usuario user = new Usuario();
-      user.setUsuario(usuarioDto.getContactoPrincipal().getEmail());
+      user.setNombreUsuario(usuarioDto.getContactoPrincipal().getEmail());
       user.setContrasenia(usuarioDto.getContrasenia());
       usuarioRepository.addUser(user);
     } catch (InvalidPasswordException e) {

@@ -17,7 +17,7 @@ import java.util.Collection;
 public class Usuario {
 
     private Long dni;
-    private String usuario;
+    private String nombreUsuario;
     private String nombre;
     private String apellido;
     private String email;
@@ -29,7 +29,7 @@ public class Usuario {
     public Usuario(Long dni, String firstName, String lastName, String email, String contrasenia, Collection<Rol> roles)
         throws InvalidPasswordException {
         this.dni = dni;
-        this.nombre = firstName;
+        this.nombreUsuario = firstName;
         this.apellido = lastName;
         this.email = email;
         this.roles = roles;
@@ -38,7 +38,7 @@ public class Usuario {
 
     public void setContrasenia(String contrasenia) throws InvalidPasswordException {
 
-        RuleResult validate = PasswordValidatorSingleton.getInstance().validate(this.usuario, contrasenia);
+        RuleResult validate = PasswordValidatorSingleton.getInstance().validate(this.nombreUsuario, contrasenia);
         if(validate.isValid()) {
             contrasenia = new BCryptPasswordEncoder().encode(contrasenia);
             this.contrasenia = contrasenia;

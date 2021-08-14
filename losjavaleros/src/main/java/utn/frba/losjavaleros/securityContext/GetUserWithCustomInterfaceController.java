@@ -13,7 +13,7 @@ public class GetUserWithCustomInterfaceController {
 	 @Autowired
 	    private IAuthenticationFacade authenticationFacade;
 
-	    @RequestMapping(value = "/usuario", method = RequestMethod.GET)
+	    @RequestMapping(value = "/yo", method = RequestMethod.GET)
 	    @ResponseBody
 	    public String currentUserNameSimple() {
 	        Authentication authentication = authenticationFacade.getAuthentication();

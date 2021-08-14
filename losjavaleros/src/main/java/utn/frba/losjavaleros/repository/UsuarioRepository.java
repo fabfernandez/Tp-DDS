@@ -26,7 +26,7 @@ public class UsuarioRepository {
     }
 
     public Usuario findByUsername(String usuario) {
-        return usuarios.stream().filter(user -> user.getUsuario().equals(usuario) ).findFirst().orElse(null);
+        return usuarios.stream().filter(user -> user.getNombreUsuario().equals(usuario) ).findFirst().orElse(null);
     }
     public void addUser(Usuario user){
         usuarios.add(user);

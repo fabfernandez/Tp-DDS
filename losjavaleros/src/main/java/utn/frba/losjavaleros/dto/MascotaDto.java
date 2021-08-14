@@ -4,9 +4,9 @@ import java.util.List;
 
 import lombok.Builder;
 import lombok.Data;
+import utn.frba.losjavaleros.model.MascotaEstadoEnum;
 
 @Data
-@Builder
 public class MascotaDto {
 
   private String nombre;
@@ -17,5 +17,6 @@ public class MascotaDto {
   private String descripcion;
   private List<String> fotos;
   private List<CaracteristicaCompletaDto> caracteristicas;
+  private String estado;
 }
 
