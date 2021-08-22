@@ -54,4 +54,9 @@ public class MascotaService {
   public Object mascotaEncontradaConChapita(final String formulario, final int mascotaId) {
     return null;
   }
+
+public Mascota getMascotaById(String id) {
+	// TODO Auto-generated method stub
+	return null;
+}
 }

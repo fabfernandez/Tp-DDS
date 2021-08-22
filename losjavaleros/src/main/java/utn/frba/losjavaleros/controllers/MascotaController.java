@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import utn.frba.losjavaleros.dto.MascotaDto;
+import utn.frba.losjavaleros.model.Mascota;
 import utn.frba.losjavaleros.model.Usuario;
 import utn.frba.losjavaleros.services.MascotaService;
 
@@ -29,11 +30,24 @@ public class MascotaController {
     return new ResponseEntity(mascotaService.filtrarMascotas(estado), HttpStatus.OK);
 
   }
+  
+  
+  
+  //link grabado en el QR de la CHAPITA
+  @GetMapping("/{id}")
+  public ResponseEntity getMascota(@PathVariable String id) {
+	  Mascota mascota =mascotaService.getMascotaById(id);
+  return new ResponseEntity(mascota, HttpStatus.OK);
+
+  }
 
   @PostMapping("/mascotaEncontrada/{mascotaId}")
   public ResponseEntity mascotaEncontradaConChapita(@RequestBody String formulario, @PathVariable int mascotaId) {
     return new ResponseEntity(mascotaService.mascotaEncontradaConChapita(formulario, mascotaId), HttpStatus.OK);
 
   }
+  
+  
+ 
 
 }
