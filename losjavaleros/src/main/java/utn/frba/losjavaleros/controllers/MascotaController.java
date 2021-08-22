@@ -35,7 +35,7 @@ public class MascotaController {
   //Link grabado en el QR de la CHAPITA, el usuario abre este link y el front-end recibe el ID si encuentra a la
   // mascota correspondiente.
   @GetMapping("/{id}")
-  public ResponseEntity getMascota(@PathVariable String id) {
+  public ResponseEntity getMascota(@PathVariable int id) {
     int mascotaId = mascotaService.getMascotaById(id);
     return new ResponseEntity(mascotaId, HttpStatus.OK);
 
@@ -49,5 +49,5 @@ public class MascotaController {
     return new ResponseEntity(mascotaService.mascotaEncontradaConChapita(formulario, mascotaId), HttpStatus.OK);
 
   }
-  
+
 }

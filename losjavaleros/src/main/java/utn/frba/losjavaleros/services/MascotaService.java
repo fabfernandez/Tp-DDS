@@ -31,6 +31,7 @@ public class MascotaService {
 
     //crear la mascota
     Mascota mascota = new Mascota(
+        1, //TODO ESTE VALOR DEBE SER AUTO INCREMENTAL.
         duenioVacio,
         caracteristicas,
         UUID.randomUUID().toString(),
@@ -48,8 +49,8 @@ public class MascotaService {
     return mascota;
   }
 
-  public List<Mascota> filtrarMascotas(String estado){
-     return mascotaRepository.getMascotasEstado(estado);
+  public List<Mascota> filtrarMascotas(String estado) {
+    return mascotaRepository.getMascotasEstado(estado);
   }
 
   public Object mascotaEncontradaConChapita(final FormMascotaConChapitaDto formulario, final int mascotaId) {
@@ -59,8 +60,7 @@ public class MascotaService {
     return mascotaRepository.save(formulario);
   }
 
-public int getMascotaById(String id) {
-	// TODO Auto-generated method stub
-	return null;
-}
+  public int getMascotaById(int id) {
+    return mascotaRepository.getMascotaById(id);
+  }
 }

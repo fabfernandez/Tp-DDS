@@ -8,6 +8,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Mascota {
+  private int id;
   private Usuario duenio;
   private List<CaracteristicaCompleta> caracteristicas;
   private String chapita;
