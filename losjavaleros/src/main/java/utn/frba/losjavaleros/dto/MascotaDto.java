@@ -2,9 +2,7 @@ package utn.frba.losjavaleros.dto;
 
 import java.util.List;
 
-import lombok.Builder;
 import lombok.Data;
-import utn.frba.losjavaleros.model.MascotaEstadoEnum;
 
 @Data
 public class MascotaDto {

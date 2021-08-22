@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
-import lombok.Getter;
-import lombok.Setter;
 import utn.frba.losjavaleros.model.Mascota;
 import utn.frba.losjavaleros.model.MascotaEstadoEnum;
 
