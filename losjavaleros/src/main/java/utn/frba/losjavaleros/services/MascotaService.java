@@ -56,7 +56,7 @@ public class MascotaService {
     /*
     * Una vez completado el formulario, el sistema deberá notificarle de esta situación al dueño
     * (conocido por estar ligado a la chapita) mediante los medios de notificación preferidos.*/
-    return null;
+    return mascotaRepository.save(formulario);
   }
 
 public int getMascotaById(String id) {
