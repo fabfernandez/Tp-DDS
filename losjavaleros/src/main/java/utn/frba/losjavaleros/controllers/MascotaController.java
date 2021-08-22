@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import utn.frba.losjavaleros.dto.FormMascotaConChapitaDto;
 import utn.frba.losjavaleros.dto.MascotaDto;
-import utn.frba.losjavaleros.model.Mascota;
 import utn.frba.losjavaleros.model.Usuario;
 import utn.frba.losjavaleros.services.MascotaService;
 

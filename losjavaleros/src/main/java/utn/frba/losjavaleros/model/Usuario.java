@@ -15,7 +15,7 @@ import java.util.Collection;
 @NoArgsConstructor
 
 public class Usuario {
-
+    private Integer id;
     private Long dni;
     private String nombreUsuario;
     private String nombre;
