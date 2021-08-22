@@ -3,6 +3,7 @@ package utn.frba.losjavaleros.controllers;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import utn.frba.losjavaleros.dto.FormMascotaConChapitaDto;
 import utn.frba.losjavaleros.dto.MascotaDto;
 import utn.frba.losjavaleros.model.Mascota;
 import utn.frba.losjavaleros.model.Usuario;
@@ -20,7 +21,6 @@ public class MascotaController {
 
   @PostMapping()
   public ResponseEntity nuevaMascota(@RequestBody MascotaDto mascotaDto) {
-
     mascotaService.crearMascota(mascotaDto, new Usuario());
     return new ResponseEntity(mascotaService.crearMascota(mascotaDto, new Usuario()), HttpStatus.OK);
   }
@@ -30,24 +30,24 @@ public class MascotaController {
     return new ResponseEntity(mascotaService.filtrarMascotas(estado), HttpStatus.OK);
 
   }
-  
-  
-  
-  //link grabado en el QR de la CHAPITA
+
+
+  //Link grabado en el QR de la CHAPITA, el usuario abre este link y el front-end recibe el ID si encuentra a la
+  // mascota correspondiente.
   @GetMapping("/{id}")
   public ResponseEntity getMascota(@PathVariable String id) {
-	  Mascota mascota =mascotaService.getMascotaById(id);
-  return new ResponseEntity(mascota, HttpStatus.OK);
+    int mascotaId = mascotaService.getMascotaById(id);
+    return new ResponseEntity(mascotaId, HttpStatus.OK);
 
   }
 
-  @PostMapping("/mascotaEncontrada/{mascotaId}")
-  public ResponseEntity mascotaEncontradaConChapita(@RequestBody String formulario, @PathVariable int mascotaId) {
+  //Si el ID de la mascota es correcto al hacer /mascotas/ID, el usuario llena el formulario y lo envia con este
+  // endpoint.
+  @PostMapping("/encontrada/{mascotaId}")
+  public ResponseEntity mascotaEncontradaConChapita(@RequestBody FormMascotaConChapitaDto formulario,
+                                                    @PathVariable int mascotaId) {
     return new ResponseEntity(mascotaService.mascotaEncontradaConChapita(formulario, mascotaId), HttpStatus.OK);
 
   }
   
-  
- 
-
 }

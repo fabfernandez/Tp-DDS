@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import utn.frba.losjavaleros.dto.FormMascotaConChapitaDto;
 import utn.frba.losjavaleros.dto.MascotaDto;
 import utn.frba.losjavaleros.model.*;
 import utn.frba.losjavaleros.repository.MascotaRepository;
@@ -51,11 +52,14 @@ public class MascotaService {
      return mascotaRepository.getMascotasEstado(estado);
   }
 
-  public Object mascotaEncontradaConChapita(final String formulario, final int mascotaId) {
+  public Object mascotaEncontradaConChapita(final FormMascotaConChapitaDto formulario, final int mascotaId) {
+    /*
+    * Una vez completado el formulario, el sistema deberá notificarle de esta situación al dueño
+    * (conocido por estar ligado a la chapita) mediante los medios de notificación preferidos.*/
     return null;
   }
 
-public Mascota getMascotaById(String id) {
+public int getMascotaById(String id) {
 	// TODO Auto-generated method stub
 	return null;
 }
