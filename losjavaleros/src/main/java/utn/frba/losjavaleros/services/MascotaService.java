@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import utn.frba.losjavaleros.dto.MascotaDto;
 import utn.frba.losjavaleros.model.*;
@@ -50,5 +49,9 @@ public class MascotaService {
 
   public List<Mascota> filtrarMascotas(String estado){
      return mascotaRepository.getMascotasEstado(estado);
+  }
+
+  public Object mascotaEncontradaConChapita(final String formulario, final int mascotaId) {
+    return null;
   }
 }
