@@ -17,6 +17,9 @@ public class MascotaService {
     @Autowired
     private MascotaRepository mascotaRepository;
 
+    @Autowired
+    private EnviadorDeMails enviadorDeMails;
+
     public Mascota crearMascota(final MascotaDto mascotaDto, final Usuario duenio) {
 
         Usuario duenioVacio = new Usuario();
@@ -59,8 +62,14 @@ public class MascotaService {
          * Una vez completado el formulario, el sistema deberá notificarle de esta situación al dueño
          * (conocido por estar ligado a la chapita) mediante los medios de notificación preferidos.*/
         Mascota mascota = mascotaRepository.getMascotaById(mascotaId);
-
-        //TODO notificar al dueño
+        String email = mascota.getDuenio().getEmail();
+        String nombreDuenio = mascota.getDuenio().getNombre();
+        String nombreEncontrador = formulario.getUsuarioDto().getNombreUsuario();
+        String apellidoEncontrador = formulario.getUsuarioDto().getApellido();
+        String nombreMascota = mascota.getNombre();
+        String cuerpoEmail = String.format("Hola %s, una persona llamda %s %s encontró a tu mascota %s",
+                nombreDuenio, nombreEncontrador, apellidoEncontrador, nombreMascota);
+        enviadorDeMails.enviarMail(email, "Alguien encontro a tu mascota!", cuerpoEmail);
     }
 
     public Mascota getMascotaById(int id) {

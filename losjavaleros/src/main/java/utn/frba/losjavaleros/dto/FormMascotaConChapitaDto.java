@@ -1,5 +1,8 @@
 package utn.frba.losjavaleros.dto;
 
+import lombok.Getter;
+
+@Getter
 public class FormMascotaConChapitaDto {
 	
 	private MascotaDto mascotaDto;
@@ -18,8 +21,7 @@ public class FormMascotaConChapitaDto {
 //	▪ Datos sobre la mascota perdida:
 //	● Al menos una foto
 //	● Descripción del estado en el cual la encontró
-//	● Lugar donde la encontró, seleccionable a través de un
-//	mapa
+//	● Lugar donde la encontró, seleccionable a través de un mapa
 
 	
 	
