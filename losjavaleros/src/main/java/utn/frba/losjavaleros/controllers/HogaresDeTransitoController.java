@@ -19,8 +19,8 @@ public class HogaresDeTransitoController {
         this.hogaresDeTransitoService = hogaresDeTransitoService;
     }
 
-    //Traer de la API ciertos hogares de transito ya filtrados
-    //aprovechar que el tp no define la API y traer todo filtrado ya
+    //PUNTO 2.4
+    //La API de hogares de transito permite buscar con filtros.
     @GetMapping("/buscarHogares")
     public ResponseEntity buscarHogares(@RequestParam final String tipoMascota,
                                         @RequestParam final boolean patio,

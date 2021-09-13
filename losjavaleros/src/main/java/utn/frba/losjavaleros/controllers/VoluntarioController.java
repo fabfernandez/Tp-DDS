@@ -17,6 +17,7 @@ public class VoluntarioController {
         this.voluntarioService = voluntarioService;
     }
 
+    //PUNTO 2.3
     @PostMapping("/serVoluntario/{usuarioId}")
     public ResponseEntity serVoluntario(@PathVariable final int usuarioId) {
 
@@ -25,7 +26,7 @@ public class VoluntarioController {
         return new ResponseEntity(voluntario, HttpStatus.OK);
 
     }
-
+    //PUNTO 2.3
     @PostMapping("/aprobarPublicacion/{idPublicacion}")
     public ResponseEntity aprobarPublicacion(@PathVariable final int idPublicacion) {
 
@@ -34,7 +35,7 @@ public class VoluntarioController {
         return new ResponseEntity(HttpStatus.OK);
 
     }
-
+    //PUNTO 2.3
     @PostMapping("/rechazarPublicacion/{idPublicacion}")
     public ResponseEntity rechazarPublicacion(@PathVariable final int idPublicacion) {
 

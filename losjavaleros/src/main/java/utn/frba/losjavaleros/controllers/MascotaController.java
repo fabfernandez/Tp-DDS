@@ -18,6 +18,7 @@ public class MascotaController {
     this.mascotaService = mascotaService;
   }
 
+  //PUNTO 1.1
   @PostMapping()
   public ResponseEntity nuevaMascota(@RequestBody MascotaDto mascotaDto) {
     mascotaService.crearMascota(mascotaDto, new Usuario());
@@ -30,22 +31,13 @@ public class MascotaController {
 
   }
 
-
   //PUNTO 2.1
-
-  //El link grabado en el QR de la chapita lleva a un front-end que hace primero el siguiente request,
-  //para ver si existe la mascota con ese ID. Si esta respuesta devuelve 200 es porque la mascota existe.
-  @GetMapping("/{id}")
-  public ResponseEntity getMascota(@PathVariable int id) {
-    mascotaService.getMascotaById(id);
-    return new ResponseEntity(HttpStatus.OK);
-
-  }
-  //Si la mascota existe el front-end, le ofrece al usuario un formulario,
-  // el usuario llena el formulario y se envia con este endpoint.
+  //El QR de la chapita tiene un link a un formulario
+  //Si la mascota existe, el usuario llena el formulario y se envía con este endpoint.
   @PostMapping("/encontrada/{mascotaId}")
   public ResponseEntity mascotaEncontradaConChapita(@RequestBody FormMascotaConChapitaDto formulario,
                                                     @PathVariable int mascotaId) {
+    mascotaService.getMascotaById(mascotaId); //chequeo de que la mascota existe
     mascotaService.notificarSobreMascotaEncontrada(formulario, mascotaId);
     return new ResponseEntity(HttpStatus.OK);
 

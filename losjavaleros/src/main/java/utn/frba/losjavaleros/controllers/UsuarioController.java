@@ -1,7 +1,5 @@
 package utn.frba.losjavaleros.controllers;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import utn.frba.losjavaleros.dto.UsuarioDto;
@@ -15,9 +13,13 @@ import java.util.Map;
 @RestController
 public class UsuarioController {
 
-  @Autowired
-  private UsuarioRepository usuarioRepository;
-  private UsuarioService usuarioService;
+  private final UsuarioRepository usuarioRepository;
+  private final UsuarioService usuarioService;
+
+  public UsuarioController(final UsuarioRepository usuarioRepository, final UsuarioService usuarioService) {
+    this.usuarioRepository = usuarioRepository;
+    this.usuarioService = usuarioService;
+  }
 
   @PostMapping("/validar")
   public String validar(@RequestBody Map<String, String> body) {
@@ -34,6 +36,7 @@ public class UsuarioController {
 
   }
 
+  //PUNTO 1.5
   @PostMapping("/registrarse")
   public ResponseEntity registrate(@RequestBody UsuarioDto usuarioDto) {
     try {

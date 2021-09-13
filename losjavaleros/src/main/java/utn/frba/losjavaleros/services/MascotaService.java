@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import utn.frba.losjavaleros.dto.FormMascotaConChapitaDto;
 import utn.frba.losjavaleros.dto.MascotaDto;
+import utn.frba.losjavaleros.dto.UsuarioDto;
 import utn.frba.losjavaleros.model.*;
 import utn.frba.losjavaleros.repository.MascotaRepository;
 
@@ -31,7 +32,7 @@ public class MascotaService {
         List<CaracteristicaCompleta> caracteristicas =
                 List.of(new CaracteristicaCompleta(caracteristicaDeBaseDeDatos, "Rosa"));
 
-        //crear fotos???
+        //TODO crear fotos???
 
         //crear la mascota
         Mascota mascota = new Mascota(
@@ -62,13 +63,18 @@ public class MascotaService {
          * Una vez completado el formulario, el sistema deberá notificarle de esta situación al dueño
          * (conocido por estar ligado a la chapita) mediante los medios de notificación preferidos.*/
         Mascota mascota = mascotaRepository.getMascotaById(mascotaId);
-        String email = mascota.getDuenio().getEmail();
-        String nombreDuenio = mascota.getDuenio().getNombre();
-        String nombreEncontrador = formulario.getUsuarioDto().getNombreUsuario();
-        String apellidoEncontrador = formulario.getUsuarioDto().getApellido();
         String nombreMascota = mascota.getNombre();
-        String cuerpoEmail = String.format("Hola %s, una persona llamda %s %s encontró a tu mascota %s",
-                nombreDuenio, nombreEncontrador, apellidoEncontrador, nombreMascota);
+
+        Usuario duenio = mascota.getDuenio();
+        String email = duenio.getEmail();
+        String nombreDuenio = duenio.getNombre();
+
+        UsuarioDto rescatista = formulario.getUsuarioDto();
+        String nombreRescatista = rescatista.getNombreUsuario();
+        String apellidoRescatista = rescatista.getApellido();
+
+        String cuerpoEmail = String.format("Hola %s, una persona llamada %s %s encontró a tu mascota %s",
+                nombreDuenio, nombreRescatista, apellidoRescatista, nombreMascota);
         enviadorDeMails.enviarMail(email, "Alguien encontro a tu mascota!", cuerpoEmail);
     }
 
