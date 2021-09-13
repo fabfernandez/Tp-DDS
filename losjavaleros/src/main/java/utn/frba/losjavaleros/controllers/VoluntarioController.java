@@ -11,19 +11,37 @@ import utn.frba.losjavaleros.services.VoluntarioService;
 @RestController
 public class VoluntarioController {
 
-  private VoluntarioService voluntarioService;
+    private VoluntarioService voluntarioService;
 
-  public VoluntarioController(final VoluntarioService voluntarioService) {
-    this.voluntarioService = voluntarioService;
-  }
+    public VoluntarioController(final VoluntarioService voluntarioService) {
+        this.voluntarioService = voluntarioService;
+    }
 
-  @PostMapping("/serVoluntario/{usuarioId}")
-  public ResponseEntity serVoluntario(@PathVariable final int usuarioId) {
+    @PostMapping("/serVoluntario/{usuarioId}")
+    public ResponseEntity serVoluntario(@PathVariable final int usuarioId) {
 
-    Voluntario voluntario = voluntarioService.crearVoluntario(usuarioId);
+        Voluntario voluntario = voluntarioService.crearVoluntario(usuarioId);
 
-    return new ResponseEntity(voluntario, HttpStatus.OK);
+        return new ResponseEntity(voluntario, HttpStatus.OK);
 
-  }
+    }
+
+    @PostMapping("/aprobarPublicacion/{idPublicacion}")
+    public ResponseEntity aprobarPublicacion(@PathVariable final int idPublicacion) {
+
+        voluntarioService.aprobarPublicacion(idPublicacion);
+
+        return new ResponseEntity(HttpStatus.OK);
+
+    }
+
+    @PostMapping("/rechazarPublicacion/{idPublicacion}")
+    public ResponseEntity rechazarPublicacion(@PathVariable final int idPublicacion) {
+
+        voluntarioService.rechazarPublicacion(idPublicacion);
+
+        return new ResponseEntity(HttpStatus.OK);
+
+    }
 
 }

@@ -31,21 +31,23 @@ public class MascotaController {
   }
 
 
-  //Link grabado en el QR de la CHAPITA, el usuario abre este link y el front-end recibe el ID si encuentra a la
-  // mascota correspondiente.
+  //El link grabado en el QR de la chapita lleva a un front end que hace primero el siguiente request,
+  //para ver si existe la mascota con ese ID.
   @GetMapping("/{id}")
   public ResponseEntity getMascota(@PathVariable int id) {
-    int mascotaId = mascotaService.getMascotaById(id);
-    return new ResponseEntity(mascotaId, HttpStatus.OK);
+    mascotaService.getMascotaById(id);
+    return new ResponseEntity(HttpStatus.OK);
 
   }
 
-  //Si el ID de la mascota es correcto al hacer /mascotas/ID, el usuario llena el formulario y lo envia con este
-  // endpoint.
+  //Si la mascota existe luego el front end le ofrece al usuario un formulario,
+  // el usuario llena el formulario y se envia con este endpoint.
   @PostMapping("/encontrada/{mascotaId}")
   public ResponseEntity mascotaEncontradaConChapita(@RequestBody FormMascotaConChapitaDto formulario,
                                                     @PathVariable int mascotaId) {
-    return new ResponseEntity(mascotaService.mascotaEncontradaConChapita(formulario, mascotaId), HttpStatus.OK);
+
+    mascotaService.notificarSobreMascotaEncontrada(formulario, mascotaId);
+    return new ResponseEntity(HttpStatus.OK);
 
   }
 

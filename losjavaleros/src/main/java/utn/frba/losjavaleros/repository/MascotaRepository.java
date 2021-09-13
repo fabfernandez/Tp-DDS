@@ -11,6 +11,7 @@ import utn.frba.losjavaleros.model.MascotaEstadoEnum;
 
 @Repository
 public class MascotaRepository {
+
   private final List<Mascota> mascotas = new ArrayList<>();
 
   public void guardar(Mascota mascota) {
@@ -28,12 +29,12 @@ public class MascotaRepository {
   }
 
 
-  public int getMascotaById(final int id) {
+  public Mascota getMascotaById(final int id) {
     Optional<Mascota> mascotaEspecifica = mascotas.stream()
         .filter(mascota -> mascota.getId() == id).findFirst();
 
     if (mascotaEspecifica.isPresent()) {
-      return mascotaEspecifica.get().getId();
+      return mascotaEspecifica.get();
 
     } else throw new RuntimeException(String.format("Mascota id %s no encontrada.", id));
   }
