@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import utn.frba.losjavaleros.dto.FormMascotaConChapitaDto;
 import utn.frba.losjavaleros.dto.MascotaDto;
@@ -23,7 +22,6 @@ public class MascotaService {
 
     public Mascota crearMascota(final MascotaDto mascotaDto, final Usuario duenio) {
 
-        Usuario duenioVacio = new Usuario();
 
         //Traer caracteristicas de base de datos por id
         Caracteristica caracteristicaDeBaseDeDatos = new Caracteristica("Color principal", "input");
@@ -37,7 +35,7 @@ public class MascotaService {
         //crear la mascota
         Mascota mascota = new Mascota(
                 1, //TODO ESTE VALOR DEBE SER AUTO INCREMENTAL.
-                duenioVacio,
+                duenio,
                 caracteristicas,
                 UUID.randomUUID().toString(),
                 mascotaDto.getTipo(),
@@ -50,6 +48,7 @@ public class MascotaService {
 
         //guardar mascota
         mascotaRepository.guardar(mascota);
+        duenio.getMascotas().add(mascota);
 
         return mascota;
     }
