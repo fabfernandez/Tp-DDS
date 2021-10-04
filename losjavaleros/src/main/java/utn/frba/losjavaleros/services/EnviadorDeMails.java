@@ -1,54 +1,57 @@
 package utn.frba.losjavaleros.services;
 
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 
-@Service
-public class EmailSender {
+@Component
+@Log
+public class EnviadorDeMails {
 
     @Autowired
-    private JavaMailSender javaMailSender;
+    private JavaMailSender enviadorMails;
 
-    public void sendEmail(String to, String subject, String body) {
-        System.out.println("Sending Email...");
+    public void enviarMail(String para, String asunto, String cuerpo) { 
+        log.info("Enviando mail...");
 
         try {
-            sendEmailWithAttachment(to, subject, body);
+            enviarMailConAdjunto(para, asunto, cuerpo);
         } catch(MessagingException | IOException e) {
             e.printStackTrace();
         }
 
-        System.out.println("Email sent.");
+        log.info("Email sent.");
     }
 
-    private void sendEmailWithAttachment(String to, String subject, String body) throws MessagingException, IOException {
+    private void enviarMailConAdjunto(String para, String asunto, String cuerpo) throws MessagingException, IOException {
 
-        MimeMessage msg = javaMailSender.createMimeMessage();
+        MimeMessage mail = enviadorMails.createMimeMessage();
 
         // true = multipart message
-        MimeMessageHelper helper = new MimeMessageHelper(msg, true);
+        MimeMessageHelper helper = new MimeMessageHelper(mail, true);
 
-        helper.setTo(to);
+        helper.setTo(para);
 
-        helper.setSubject(subject);
+        helper.setSubject(asunto);
 
         // default = text/plain
         // true = text/html
-        helper.setText(body, false);
+        helper.setText(cuerpo, false);
 
         // hard coded a file path
         //FileSystemResource file = new FileSystemResource(new File("path/android.png"));
 
         //helper.addAttachment("my_photo.png", new ClassPathResource("android.png"));
 
-        javaMailSender.send(msg);
+        enviadorMails.send(mail);
 
     }
 }

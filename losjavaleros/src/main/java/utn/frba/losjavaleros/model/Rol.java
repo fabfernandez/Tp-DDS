@@ -1,5 +1,8 @@
 package utn.frba.losjavaleros.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,12 +12,12 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+public class Rol {
 
-public class Role {
+  @Id
+  private Long id;
 
-
-    private Long id;
-
-    private String name;
+  private String nombre;
 
 }

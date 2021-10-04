@@ -1,30 +1,32 @@
 package utn.frba.losjavaleros.controllers;
 
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import utn.frba.losjavaleros.dto.UsuarioDto;
 import utn.frba.losjavaleros.model.Usuario;
 import utn.frba.losjavaleros.model.exception.InvalidPasswordException;
 import utn.frba.losjavaleros.repository.UsuarioRepository;
+import utn.frba.losjavaleros.services.UsuarioService;
 
 import java.util.Map;
 
 @RestController
-public class UserController {
+public class UsuarioController {
 
-  final UsuarioRepository usuarioRepository;
+  private final UsuarioRepository usuarioRepository;
+  private final UsuarioService usuarioService;
 
-  public UserController(final UsuarioRepository usuarioRepository) {
+  public UsuarioController(final UsuarioRepository usuarioRepository, final UsuarioService usuarioService) {
     this.usuarioRepository = usuarioRepository;
+    this.usuarioService = usuarioService;
   }
 
-  @PostMapping("/validate")
-  public String validate(@RequestBody Map<String, String> body) {
+  @PostMapping("/validar")
+  public String validar(@RequestBody Map<String, String> body) {
     try {
       Usuario user = new Usuario();
-      user.setUsername("username");
-      user.setPassword("password");
+      user.setNombreUsuario("usuario");
+      user.setContrasenia("password");
       usuarioRepository.addUser(user);
     } catch (InvalidPasswordException e) {
       return e.getMessage();
@@ -34,18 +36,16 @@ public class UserController {
 
   }
 
+  //PUNTO 1.5
   @PostMapping("/registrarse")
   public ResponseEntity registrate(@RequestBody UsuarioDto usuarioDto) {
     try {
-      Usuario user = new Usuario();
-      user.setUsername(usuarioDto.getMainContact().getEmail());
-      user.setPassword(usuarioDto.getPassword());
-      usuarioRepository.addUser(user);
+      usuarioService.crearUsuario(usuarioDto);
     } catch (InvalidPasswordException e) {
       return ResponseEntity.badRequest().build();
 
     }
-    return ResponseEntity.ok("User registered.");
+    return ResponseEntity.ok("Usuario registrado.");
 
   }
 

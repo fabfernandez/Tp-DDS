@@ -1,5 +1,6 @@
 package utn.frba.losjavaleros.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,39 +10,63 @@ import utn.frba.losjavaleros.model.exception.InvalidPasswordException;
 import utn.frba.losjavaleros.security.PasswordValidatorSingleton;
 
 import java.util.Collection;
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Getter
 @Setter
 @NoArgsConstructor
-
+@Entity
 public class Usuario {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private Long dni;
-    private String username;
-    private String firstName;
-    private String lastName;
+    private String nombreUsuario;
+    private String nombre;
+    private String apellido;
     private String email;
-    private String password;
+    private String contrasenia;
+    @OneToMany
+    private Collection<Rol> roles;
+    @OneToMany
+    private List<Mascota> mascotas;
 
-    private Collection<Role> roles;
 
-    //no borrar este constructor!
-    public Usuario(Long dni, String firstName, String lastName, String email, String password, Collection<Role> roles)
-        throws InvalidPasswordException {
+    public Usuario(final Integer id, final Long dni, final String nombreUsuario, final String nombre, final String apellido, final String email, final String contrasenia, final Collection<Rol> roles, final List<Mascota> mascotas) {
+        this.id = id;
         this.dni = dni;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.nombreUsuario = nombreUsuario;
+        this.nombre = nombre;
+        this.apellido = apellido;
         this.email = email;
+        this.contrasenia = contrasenia;
         this.roles = roles;
-        setPassword(password);
+        this.mascotas = mascotas;
     }
 
-    public void setPassword(String password) throws InvalidPasswordException {
+    //no borrar este constructor!
+    public Usuario(Long dni, String firstName, String lastName, String email, String contrasenia, Collection<Rol> roles)
+        throws InvalidPasswordException {
+        this.dni = dni;
+        this.nombreUsuario = firstName;
+        this.apellido = lastName;
+        this.email = email;
+        this.roles = roles;
+        setContrasenia(contrasenia);
+    }
 
-        RuleResult validate = PasswordValidatorSingleton.getInstance().validate(this.username, password);
+    public void setContrasenia(String contrasenia) throws InvalidPasswordException {
+
+        RuleResult validate = PasswordValidatorSingleton.getInstance().validate(this.nombreUsuario, contrasenia);
         if(validate.isValid()) {
-            password = new BCryptPasswordEncoder().encode(password);
-            this.password = password;
+            contrasenia = new BCryptPasswordEncoder().encode(contrasenia);
+            this.contrasenia = contrasenia;
         }else
             throw new InvalidPasswordException(validate.getDetails().toString());
     }

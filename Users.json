@@ -1,14 +1,14 @@
 [{
   "dni":12345,
-  "firstName": "user",
-  "lastName": "user",
+  "nombre": "user",
+  "apellido": "user",
   "email": "user@user.com",
-  "username": "testuser",
-  "password": "Test1234.",
+  "nombreUsuario": "testuser",
+  "contrasenia": "Test1234.",
   "roles": [
     {
       "id": 1,
-      "name": "ADMIN"
+      "nombre": "ADMIN"
     }
   ]
 }]
