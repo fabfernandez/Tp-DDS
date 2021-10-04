@@ -20,7 +20,7 @@ import lombok.Setter;
 public class CaracteristicaCompleta {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private int id;
   @ManyToOne
   private Caracteristica caracteristica;
   private String respuesta;

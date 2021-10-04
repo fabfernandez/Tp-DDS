@@ -1,10 +1,14 @@
 package utn.frba.losjavaleros.services;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import utn.frba.losjavaleros.dto.CaracteristicaCompletaDto;
 import utn.frba.losjavaleros.dto.FormMascotaConChapitaDto;
 import utn.frba.losjavaleros.dto.MascotaDto;
 import utn.frba.losjavaleros.dto.UsuarioDto;
@@ -22,13 +26,25 @@ public class MascotaService {
 
   public Mascota crearMascota(final MascotaDto mascotaDto, final Usuario duenio) {
 
+    List<CaracteristicaCompleta> caracteristicasCompletas = new ArrayList<>();
 
-    //Traer caracteristicas de base de datos por id
-    Caracteristica caracteristicaDeBaseDeDatos = new Caracteristica(420L, "Color principal", "input");
+    //Iterando las caracteristicas completas que vienen en el mascotaDto:
+    List<CaracteristicaCompletaDto> caracteristicaCompletaDtos = mascotaDto.getCaracteristicas();
+    for (CaracteristicaCompletaDto caracteristicaCompletaDto : caracteristicaCompletaDtos) {
 
-    //insertar respuestas del usuario
-    List<CaracteristicaCompleta> caracteristicas =
-        List.of(new CaracteristicaCompleta(caracteristicaDeBaseDeDatos.getId(), caracteristicaDeBaseDeDatos, "Rosa"));
+      //1. TODO Traer caracteristica de base de datos por id
+      Caracteristica caracteristicaDeBaseDeDatos = new Caracteristica(caracteristicaCompletaDto.getIdCaracteristica(), "Color" +
+          "principal", "input");
+      //2. Insertar respuestas del usuario
+      Caracteristica caracteristica = new Caracteristica(caracteristicaCompletaDto.getIdCaracteristica(),
+          caracteristicaDeBaseDeDatos.getNombre(),
+          caracteristicaDeBaseDeDatos.getTipo());
+
+      caracteristicasCompletas.add(new CaracteristicaCompleta(
+          caracteristicaCompletaDto.getIdCaracteristica(), caracteristica, caracteristicaCompletaDto.getRespuesta())
+      );
+
+    }
 
     //TODO crear fotos???
 
@@ -36,7 +52,7 @@ public class MascotaService {
     Mascota mascota = new Mascota(
         1, //TODO ESTE VALOR DEBE SER AUTO INCREMENTAL.
         duenio,
-        caracteristicas,
+        caracteristicasCompletas,
         UUID.randomUUID().toString(),
         mascotaDto.getTipo(),
         mascotaDto.getNombre(),
@@ -47,21 +63,21 @@ public class MascotaService {
         null, MascotaEstadoEnum.valueOf(mascotaDto.getEstado()));
 
     //guardar mascota
-    mascotaRepository.guardar(mascota);
+    mascotaRepository.save(mascota);
     duenio.getMascotas().add(mascota);
 
     return mascota;
   }
 
   public List<Mascota> filtrarMascotas(String estado) {
-    return mascotaRepository.getMascotasEstado(estado);
+    return mascotaRepository.findAll().stream().filter(mascota -> Objects.equals(mascota.getEstado().toString(), estado)).collect(Collectors.toList());
   }
 
   public void notificarSobreMascotaEncontrada(final FormMascotaConChapitaDto formulario, final int mascotaId) {
     /*
      * Una vez completado el formulario, el sistema deberá notificarle de esta situación al dueño
      * (conocido por estar ligado a la chapita) mediante los medios de notificación preferidos.*/
-    Mascota mascota = mascotaRepository.getMascotaById(mascotaId);
+    Mascota mascota = mascotaRepository.getById(mascotaId);
     String nombreMascota = mascota.getNombre();
 
     Usuario duenio = mascota.getDuenio();
@@ -78,7 +94,7 @@ public class MascotaService {
   }
 
   public Mascota getMascotaById(int id) {
-    return mascotaRepository.getMascotaById(id);
+    return mascotaRepository.getById(id);
   }
 
 }
