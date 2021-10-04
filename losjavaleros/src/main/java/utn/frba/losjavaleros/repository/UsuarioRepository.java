@@ -1,6 +1,7 @@
 package utn.frba.losjavaleros.repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import utn.frba.losjavaleros.helpers.JsonHelper;
 import utn.frba.losjavaleros.model.Usuario;
@@ -16,7 +17,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
-public class UsuarioRepository {
+public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
+  /*
 
   private List<Usuario> usuarios;
 
@@ -49,5 +51,5 @@ public class UsuarioRepository {
     } else throw new RuntimeException(String.format("Usuario id %s no encontrada.", usuarioId));
 
   }
-
+*/
 }

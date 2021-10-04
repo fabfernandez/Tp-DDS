@@ -17,6 +17,7 @@ import utn.frba.losjavaleros.model.*;
 import utn.frba.losjavaleros.repository.CaracteristicaCompletaRepository;
 import utn.frba.losjavaleros.repository.CaracteristicaRepository;
 import utn.frba.losjavaleros.repository.MascotaRepository;
+import utn.frba.losjavaleros.repository.UsuarioRepository;
 
 @Service
 public class MascotaService {
@@ -32,6 +33,9 @@ public class MascotaService {
 
   @Autowired
   private CaracteristicaCompletaRepository caracteristicaCompletaRepository;
+
+  @Autowired
+  private UsuarioRepository usuarioRepository;
 
   public void crearMascota(final MascotaDto mascotaDto, final Usuario duenio) {
 
@@ -59,18 +63,24 @@ public class MascotaService {
     Mascota mascota = new Mascota(
         duenio,
         caracteristicasCompletas,
-        UUID.randomUUID().toString(),
+        UUID.randomUUID().toString(), //chapita random string
         mascotaDto.getTipo(),
         mascotaDto.getNombre(),
         mascotaDto.getApodo(),
         mascotaDto.getEdad(),
         Sexo.valueOf(mascotaDto.getSexo()),
         mascotaDto.getDescripcion(),
-        null, MascotaEstadoEnum.valueOf(mascotaDto.getEstado()));
+        null, //faltan fotos
+        MascotaEstadoEnum.valueOf(mascotaDto.getEstado()));
 
     //guardar mascota
     mascotaRepository.save(mascota);
-    duenio.getMascotas().add(mascota);
+    //guardar duenio
+    List<Mascota> mascotas = duenio.getMascotas();
+    mascotas.add(mascota);
+    duenio.setMascotas(mascotas);
+
+
   }
 
   public List<Mascota> filtrarMascotas(String estado) {

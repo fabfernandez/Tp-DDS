@@ -27,7 +27,7 @@ public class UsuarioController {
       Usuario user = new Usuario();
       user.setNombreUsuario("usuario");
       user.setContrasenia("password");
-      usuarioRepository.addUser(user);
+      usuarioRepository.save(user);
     } catch (InvalidPasswordException e) {
       return e.getMessage();
 
