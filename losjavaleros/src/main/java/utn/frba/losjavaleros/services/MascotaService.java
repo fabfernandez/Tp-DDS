@@ -8,11 +8,14 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;
 import utn.frba.losjavaleros.dto.CaracteristicaCompletaDto;
 import utn.frba.losjavaleros.dto.FormMascotaConChapitaDto;
 import utn.frba.losjavaleros.dto.MascotaDto;
 import utn.frba.losjavaleros.dto.UsuarioDto;
 import utn.frba.losjavaleros.model.*;
+import utn.frba.losjavaleros.repository.CaracteristicaCompletaRepository;
+import utn.frba.losjavaleros.repository.CaracteristicaRepository;
 import utn.frba.losjavaleros.repository.MascotaRepository;
 
 @Service
@@ -24,33 +27,36 @@ public class MascotaService {
   @Autowired
   private EnviadorDeMails enviadorDeMails;
 
-  public Mascota crearMascota(final MascotaDto mascotaDto, final Usuario duenio) {
+  @Autowired
+  private CaracteristicaRepository caracteristicaRepository;
 
+  @Autowired
+  private CaracteristicaCompletaRepository caracteristicaCompletaRepository;
+
+  public void crearMascota(final MascotaDto mascotaDto, final Usuario duenio) {
+
+    //Iterando las caracteristicas completas que vienen en el mascotaDto, llenamos una lista:
     List<CaracteristicaCompleta> caracteristicasCompletas = new ArrayList<>();
+    List<CaracteristicaCompletaDto> caracteristicasCompletasDtos = mascotaDto.getCaracteristicas();
+    for (CaracteristicaCompletaDto caracteristicaCompletaDto : caracteristicasCompletasDtos) {
 
-    //Iterando las caracteristicas completas que vienen en el mascotaDto:
-    List<CaracteristicaCompletaDto> caracteristicaCompletaDtos = mascotaDto.getCaracteristicas();
-    for (CaracteristicaCompletaDto caracteristicaCompletaDto : caracteristicaCompletaDtos) {
+      //1. Traer caracteristica de base de datos por id
+      Caracteristica caracteristicaDeBaseDeDatos =
+          caracteristicaRepository.getById(caracteristicaCompletaDto.getIdCaracteristica());
 
-      //1. TODO Traer caracteristica de base de datos por id
-      Caracteristica caracteristicaDeBaseDeDatos = new Caracteristica(caracteristicaCompletaDto.getIdCaracteristica(), "Color" +
-          "principal", "input");
       //2. Insertar respuestas del usuario
-      Caracteristica caracteristica = new Caracteristica(caracteristicaCompletaDto.getIdCaracteristica(),
-          caracteristicaDeBaseDeDatos.getNombre(),
-          caracteristicaDeBaseDeDatos.getTipo());
 
-      caracteristicasCompletas.add(new CaracteristicaCompleta(
-          caracteristicaCompletaDto.getIdCaracteristica(), caracteristica, caracteristicaCompletaDto.getRespuesta())
-      );
+      CaracteristicaCompleta caracteristicaCompleta = new CaracteristicaCompleta(
+          caracteristicaDeBaseDeDatos.getId(), caracteristicaDeBaseDeDatos, caracteristicaCompletaDto.getRespuesta());
 
+      caracteristicaCompletaRepository.save(caracteristicaCompleta);
+      caracteristicasCompletas.add(caracteristicaCompleta);
     }
 
     //TODO crear fotos???
 
     //crear la mascota
     Mascota mascota = new Mascota(
-        1, //TODO ESTE VALOR DEBE SER AUTO INCREMENTAL.
         duenio,
         caracteristicasCompletas,
         UUID.randomUUID().toString(),
@@ -65,8 +71,6 @@ public class MascotaService {
     //guardar mascota
     mascotaRepository.save(mascota);
     duenio.getMascotas().add(mascota);
-
-    return mascota;
   }
 
   public List<Mascota> filtrarMascotas(String estado) {
