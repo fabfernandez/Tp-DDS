@@ -17,7 +17,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
-public interface UsuarioRepository extends JpaRepository {
+public interface UsuarioRepository extends JpaRepository<Usuario,Integer> {
 
 /*
   @PostConstruct
