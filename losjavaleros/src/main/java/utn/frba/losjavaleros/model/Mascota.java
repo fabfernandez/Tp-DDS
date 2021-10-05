@@ -16,7 +16,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class Mascota {
@@ -38,4 +37,17 @@ public class Mascota {
   private List<Foto> fotos;
   private MascotaEstadoEnum estado;
 
+  public Mascota(final Usuario duenio, final List<CaracteristicaCompleta> caracteristicas, final String chapita, final String tipo, final String nombre, final String apodo, final Integer edad, final Sexo sexo, final String descripcion, final List<Foto> fotos, final MascotaEstadoEnum estado) {
+    this.duenio = duenio;
+    this.caracteristicas = caracteristicas;
+    this.chapita = chapita;
+    this.tipo = tipo;
+    this.nombre = nombre;
+    this.apodo = apodo;
+    this.edad = edad;
+    this.sexo = sexo;
+    this.descripcion = descripcion;
+    this.fotos = fotos;
+    this.estado = estado;
+  }
 }

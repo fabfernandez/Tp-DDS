@@ -19,7 +19,7 @@ public class CaracteristicaService {
         caracteristica.setNombre(nuevaCaracteristica.getNombre());
         caracteristica.setTipo(nuevaCaracteristica.getTipo());
 
-        caracteristicaRepository.agregarCaracteristica(caracteristica);
+        caracteristicaRepository.save(caracteristica);
     }
 
 }

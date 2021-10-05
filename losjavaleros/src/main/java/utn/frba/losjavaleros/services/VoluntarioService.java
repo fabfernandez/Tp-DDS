@@ -22,7 +22,7 @@ public class VoluntarioService {
 
 
     public Voluntario crearVoluntario(final int usuarioId) {
-        Usuario usuario = usuarioRepository.findById(usuarioId);
+        Usuario usuario = usuarioRepository.getById(usuarioId);
         return new Voluntario(usuario);
     }
 

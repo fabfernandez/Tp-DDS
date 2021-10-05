@@ -21,8 +21,9 @@ public class MascotaController {
   //PUNTO 1.1
   @PostMapping()
   public ResponseEntity nuevaMascota(@RequestBody MascotaDto mascotaDto) {
+    //TODO capturar el usuario actual
     mascotaService.crearMascota(mascotaDto, new Usuario());
-    return new ResponseEntity(mascotaService.crearMascota(mascotaDto, new Usuario()), HttpStatus.OK);
+    return new ResponseEntity(HttpStatus.OK);
   }
 
   @GetMapping("/{estado}")
