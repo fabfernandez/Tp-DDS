@@ -29,14 +29,14 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Integer> {
     usuarios = (List<Usuario>) JsonHelper.parse(json, typeReference);
 
   }
-*/
+
 
    Usuario findByUsername(String usuario);
 
    Usuario save(Usuario usuario);
 
    Usuario findById(int usuarioId);
-
+*/
 
 
 }
