@@ -25,6 +25,6 @@ public class UsuarioService {
             usuario.setContrasenia(nuevoUsuario.getContrasenia());
             usuario.setRoles(nuevoUsuario.getRoles());
 
-            usuarioRepository.addUser(usuario);
+            usuarioRepository.save(usuario);
     }
 }
