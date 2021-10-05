@@ -30,6 +30,7 @@ public interface UsuarioRepository extends CrudRepository<Usuario,Integer> {
     usuarios = (List<Usuario>) JsonHelper.parse(json, typeReference);
 
   }
+<<<<<<< HEAD
 */
    Usuario findByNombreUsuario(String usuario);
 

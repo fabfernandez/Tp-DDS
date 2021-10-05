@@ -1,6 +1,5 @@
 # Tp DDS
 
-#### Run Keycloak
+#### Run Mysql
 `
-docker run -p 8080:8080 -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin quay.io/keycloak/keycloak:14.0.0
-`
+docker run --name some-mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=my-secret-pw  -e MYSQL_DATABASE=javaleros -d mysql`
