@@ -12,11 +12,7 @@ import utn.frba.losjavaleros.security.PasswordValidatorSingleton;
 import java.util.Collection;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -32,9 +28,13 @@ public class Usuario {
     private String apellido;
     private String email;
     private String contrasenia;
-    @OneToMany
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "usuario_rol",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "rol_id"))
     private Collection<Rol> roles;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Mascota> mascotas;
 
 
@@ -51,10 +51,11 @@ public class Usuario {
     }
 
     //no borrar este constructor!
-    public Usuario(Long dni, String firstName, String lastName, String email, String contrasenia, Collection<Rol> roles)
+    public Usuario(Long dni,String nombreUsuario, String firstName, String lastName, String email, String contrasenia, Collection<Rol> roles)
         throws InvalidPasswordException {
         this.dni = dni;
-        this.nombreUsuario = firstName;
+        this.nombreUsuario = nombreUsuario;
+        this.nombre = firstName;
         this.apellido = lastName;
         this.email = email;
         this.roles = roles;

@@ -2,6 +2,7 @@ package utn.frba.losjavaleros.repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import utn.frba.losjavaleros.helpers.JsonHelper;
 import utn.frba.losjavaleros.model.Usuario;
@@ -17,7 +18,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
-public interface UsuarioRepository extends JpaRepository<Usuario,Integer> {
+public interface UsuarioRepository extends CrudRepository<Usuario,Integer> {
 
 /*
   @PostConstruct
@@ -30,8 +31,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Integer> {
 
   }
 */
-
-   Usuario findByUsername(String usuario);
+   Usuario findByNombreUsuario(String usuario);
 
    Usuario save(Usuario usuario);
 

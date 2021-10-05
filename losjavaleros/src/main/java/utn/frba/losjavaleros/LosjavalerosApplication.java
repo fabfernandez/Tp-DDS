@@ -18,32 +18,12 @@ import java.util.List;
 
 @SpringBootApplication
 @Log
-public class LosjavalerosApplication implements ApplicationRunner {
+public class LosjavalerosApplication  {
 
-    @Autowired
-    UsuarioRepository usuarioRepository;
 
 
     public static void main(String[] args) {
         SpringApplication.run(LosjavalerosApplication.class, args);
-    }
-
-    @Override
-    public void run(ApplicationArguments args) throws Exception {
-        log.info("EXECUTING : command line runner");
-        try{
-            Usuario usuario  = new Usuario(1,
-                    1L,
-                    "admin",
-                    "mario",
-                    "bros",
-                    "mariobros@mail.com",
-                    "itsmeMar10", Collections.EMPTY_LIST, Collections.EMPTY_LIST);
-            usuarioRepository.save(usuario);
-        }catch (Exception e){
-            log.info("not saved user");
-        }
-
     }
 
 }

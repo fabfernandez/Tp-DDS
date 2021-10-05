@@ -24,11 +24,11 @@ public class MascotaService {
 
 
         //Traer caracteristicas de base de datos por id
-        Caracteristica caracteristicaDeBaseDeDatos = new Caracteristica("Color principal", "input");
+        Caracteristica caracteristicaDeBaseDeDatos = new Caracteristica(1L,"Color principal", "input");
 
         //insertar respuestas del usuario
         List<CaracteristicaCompleta> caracteristicas =
-                List.of(new CaracteristicaCompleta(caracteristicaDeBaseDeDatos, "Rosa"));
+                List.of(new CaracteristicaCompleta(1L,caracteristicaDeBaseDeDatos, "Rosa"));
 
         //TODO crear fotos???
 

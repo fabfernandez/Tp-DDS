@@ -2,11 +2,14 @@ package utn.frba.losjavaleros.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,4 +23,11 @@ public class Rol {
 
   private String nombre;
 
+  @ManyToMany
+  private List<Usuario> usuarios;
+
+  public Rol(long l, String rol) {
+    this.id = l;
+    this.nombre = rol;
+  }
 }
