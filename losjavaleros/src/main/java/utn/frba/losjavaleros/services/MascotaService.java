@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;
 import utn.frba.losjavaleros.dto.CaracteristicaCompletaDto;
 import utn.frba.losjavaleros.dto.FormMascotaConChapitaDto;
@@ -20,34 +22,40 @@ import utn.frba.losjavaleros.repository.MascotaRepository;
 import utn.frba.losjavaleros.repository.UsuarioRepository;
 
 @Service
+@Transactional
 public class MascotaService {
 
-  @Autowired
+  
   private MascotaRepository mascotaRepository;
 
-  @Autowired
+  
   private EnviadorDeMails enviadorDeMails;
 
-  @Autowired
+  
   private CaracteristicaRepository caracteristicaRepository;
 
-  @Autowired
+  
   private CaracteristicaCompletaRepository caracteristicaCompletaRepository;
 
 
-  @Autowired
+  
   private UsuarioRepository usuarioRepository;
+  
+  
+  
+  
+  
 
   public void crearMascota(final MascotaDto mascotaDto, final Usuario duenio) {
 
     //Iterando las caracteristicas completas que vienen en el mascotaDto, llenamos una lista:
     List<CaracteristicaCompleta> caracteristicasCompletas = new ArrayList<>();
-    List<CaracteristicaCompletaDto> caracteristicasCompletasDtos = mascotaDto.getCaracteristicas();
-    for (CaracteristicaCompletaDto caracteristicaCompletaDto : caracteristicasCompletasDtos) {
+    List<CaracteristicaCompleta> caracteristicasCompletasDtos = mascotaDto.getCaracteristicas();
+    for (CaracteristicaCompleta caracteristicaCompletaDto : caracteristicasCompletasDtos) {
 
       //1. Traer caracteristica de base de datos por id
       Caracteristica caracteristicaDeBaseDeDatos =
-          caracteristicaRepository.getById(caracteristicaCompletaDto.getIdCaracteristica());
+          caracteristicaRepository.getById(caracteristicaCompletaDto.getId());
 
       //2. Insertar respuestas del usuario
 
@@ -69,10 +77,10 @@ public class MascotaService {
         mascotaDto.getNombre(),
         mascotaDto.getApodo(),
         mascotaDto.getEdad(),
-        Sexo.valueOf(mascotaDto.getSexo()),
+        Sexo.valueOf(mascotaDto.getSexo().toString()),
         mascotaDto.getDescripcion(),
         null, //faltan fotos
-        MascotaEstadoEnum.valueOf(mascotaDto.getEstado()));
+        MascotaEstadoEnum.valueOf(mascotaDto.getEstado().toString()));
 
     //guardar mascota
     mascotaRepository.save(mascota);

@@ -28,8 +28,10 @@ class entrega1punto1Test {
     usuarioSinMascotas = new Usuario(1, 123L, "usuario", "nombre", "apellido", "email",
         "contrasenia", null, new ArrayList<>());
 
-    mascotaDto = new MascotaDto("nombre", "apodo", 5, "perro", "macho", "descripcion",
-        null, null, "estado");
+	/*
+	 * mascotaDto = new MascotaDto("nombre", "apodo", 5, "perro", "macho",
+	 * "descripcion", null, null, "estado");
+	 */
 
     //mascota1 = new Mascota(1, usuarioSinMascotas, null, )
 
