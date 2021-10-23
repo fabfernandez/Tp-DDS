@@ -7,18 +7,23 @@ import utn.frba.losjavaleros.model.Usuario;
 import utn.frba.losjavaleros.model.Voluntario;
 import utn.frba.losjavaleros.repository.PublicacionRepository;
 import utn.frba.losjavaleros.repository.UsuarioRepository;
+import utn.frba.losjavaleros.repository.VoluntarioRepository;
 
 @Service
 public class VoluntarioService {
 
-    private UsuarioRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
 
-    private PublicacionRepository publicacionRepository;
+    private final PublicacionRepository publicacionRepository;
+
+    private final VoluntarioRepository voluntarioRepository;
 
     public VoluntarioService(final UsuarioRepository usuarioRepository,
-                             final PublicacionRepository publicacionRepository) {
+                             final PublicacionRepository publicacionRepository,
+                             final VoluntarioRepository voluntarioRepository) {
         this.usuarioRepository = usuarioRepository;
         this.publicacionRepository = publicacionRepository;
+        this.voluntarioRepository = voluntarioRepository;
     }
 
 
@@ -36,19 +41,19 @@ public class VoluntarioService {
         //crear al Voluntario
         Voluntario voluntario = new Voluntario(usuario, asociacion);
         //persistir
-
+        voluntarioRepository.save(voluntario);
         return null;
 
     }
 
-    public void aprobarPublicacion(int idPublicacion) {
+    public void aprobarPublicacion(final int idPublicacion) {
 
         Publicacion publicacion = publicacionRepository.getById(idPublicacion);
 
         publicacion.aprobar();
     }
 
-    public void rechazarPublicacion(int idPublicacion) {
+    public void rechazarPublicacion(final int idPublicacion) {
         Publicacion publicacion = publicacionRepository.getById(idPublicacion);
 
         publicacion.rechazar();
