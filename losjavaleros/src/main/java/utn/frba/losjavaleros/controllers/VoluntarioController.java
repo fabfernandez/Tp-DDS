@@ -21,6 +21,12 @@ public class VoluntarioController {
     @PostMapping("/serVoluntario/{usuarioId}")
     public ResponseEntity serVoluntario(@PathVariable final int usuarioId) {
 
+        //No puede pasarse el usario ID por parametro, no tiene seguridad.
+        //TODO Obtener el ID del usuario logeado.
+
+        //si el usuario loggeado ya es voluntario, lanzar excepcion.
+
+
         Voluntario voluntario = voluntarioService.crearVoluntario(usuarioId);
 
         return new ResponseEntity(voluntario, HttpStatus.OK);
@@ -29,6 +35,8 @@ public class VoluntarioController {
     //PUNTO 2.3
     @PostMapping("/aprobarPublicacion/{idPublicacion}")
     public ResponseEntity aprobarPublicacion(@PathVariable final int idPublicacion) {
+
+        //probar que el usuario loggeado es un voluntario.
 
         voluntarioService.aprobarPublicacion(idPublicacion);
 
