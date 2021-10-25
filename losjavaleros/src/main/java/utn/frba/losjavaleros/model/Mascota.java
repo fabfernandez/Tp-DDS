@@ -56,6 +56,7 @@ public Mascota(final Usuario duenio, final List<CaracteristicaCompleta> caracter
     this.estado = estado;
   }
 
+
 public int getId() {
 	return id;
 }
