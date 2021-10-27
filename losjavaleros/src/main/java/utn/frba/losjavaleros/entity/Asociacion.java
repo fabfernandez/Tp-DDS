@@ -1,6 +1,5 @@
 package utn.frba.losjavaleros.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -12,11 +11,16 @@ import lombok.Setter;
 @Setter
 public class Asociacion {
   @Id
-  @Column(name = "id", nullable = false)
   private Long id;
 
   private String nombre;
 
   public Asociacion() {
   }
+
+  public Asociacion(final Long id, final String nombre) {
+    this.id = id;
+    this.nombre = nombre;
+  }
+
 }

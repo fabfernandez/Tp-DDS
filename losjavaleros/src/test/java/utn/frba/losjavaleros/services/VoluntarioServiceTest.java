@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import javassist.NotFoundException;
 import static org.junit.jupiter.api.Assertions.*;
 import utn.frba.losjavaleros.model.Usuario;
 import utn.frba.losjavaleros.model.Voluntario;
@@ -29,7 +30,7 @@ class VoluntarioServiceTest {
 
   @Test
   @DisplayName("Nuevo Voluntario.")
-  void crearVoluntario() {
+  void crearVoluntario() throws NotFoundException {
     //Con el ID del usuario identificado, crear un nuevo Voluntario.
     // Se basa al Voluntario en el Usuario recibido.
     // Se busca en BD al usuario para traer todos los datos disponibles.
@@ -40,7 +41,7 @@ class VoluntarioServiceTest {
     //  instanciar Voluntario
     //  persistirlo
 
-    Voluntario voluntario = voluntarioService.crearVoluntario(123);
+    Voluntario voluntario = voluntarioService.crearVoluntario(123, 1L);
     //probar que el Voluntario esté persistido.
 
   }

@@ -1,61 +1,93 @@
 package utn.frba.losjavaleros.services;
 
+import java.util.Collection;
+import java.util.Objects;
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
+import javassist.NotFoundException;
 import utn.frba.losjavaleros.entity.Asociacion;
 import utn.frba.losjavaleros.model.Publicacion;
+import utn.frba.losjavaleros.model.Rol;
 import utn.frba.losjavaleros.model.Usuario;
 import utn.frba.losjavaleros.model.Voluntario;
+import utn.frba.losjavaleros.repository.AsociacionRepository;
 import utn.frba.losjavaleros.repository.PublicacionRepository;
+import utn.frba.losjavaleros.repository.RolRepository;
 import utn.frba.losjavaleros.repository.UsuarioRepository;
 import utn.frba.losjavaleros.repository.VoluntarioRepository;
 
 @Service
 public class VoluntarioService {
 
-    private final UsuarioRepository usuarioRepository;
+  private final UsuarioRepository usuarioRepository;
 
-    private final PublicacionRepository publicacionRepository;
+  private final PublicacionRepository publicacionRepository;
 
-    private final VoluntarioRepository voluntarioRepository;
+  private final VoluntarioRepository voluntarioRepository;
 
-    public VoluntarioService(final UsuarioRepository usuarioRepository,
-                             final PublicacionRepository publicacionRepository,
-                             final VoluntarioRepository voluntarioRepository) {
-        this.usuarioRepository = usuarioRepository;
-        this.publicacionRepository = publicacionRepository;
-        this.voluntarioRepository = voluntarioRepository;
+  private final RolRepository rolRepository;
+
+  private final AsociacionRepository asociacionRepository;
+
+  public VoluntarioService(final UsuarioRepository usuarioRepository,
+                           final PublicacionRepository publicacionRepository,
+                           final VoluntarioRepository voluntarioRepository,
+                           final RolRepository rolRepository,
+                           final AsociacionRepository asociacionRepository) {
+    this.usuarioRepository = usuarioRepository;
+    this.publicacionRepository = publicacionRepository;
+    this.voluntarioRepository = voluntarioRepository;
+    this.rolRepository = rolRepository;
+    this.asociacionRepository = asociacionRepository;
+  }
+
+  @Transactional
+  public Voluntario crearVoluntario(final int usuarioId, final long asociacionId) throws NotFoundException {
+
+    Usuario usuario = usuarioRepository.findById(usuarioId);
+    //si tiene el rol de USUARIO COMUN, entonces:
+    //  agregarle el rol de Voluntario.
+    Collection<Rol> roles = usuario.getRoles();
+    if (roles.size() == 1 &&
+        roles.stream().anyMatch(rol -> rol.getNombre().equals("usuario"))) {
+
+      Rol rolVoluntario = rolRepository.getById(3L);
+      Assert.isTrue(Objects.equals(rolVoluntario.getNombre(), "voluntario"),
+          "El rol id 3L tiene que ser el voluntario.");
+      roles.add(rolVoluntario);
+      usuarioRepository.save(usuario);
     }
 
+    //agregar Asociacion:
+    //  tiene que venir un id para buscar la Asociacion en BD.
+    Optional<Asociacion> asociacion = asociacionRepository.findById(asociacionId);
+    if (asociacion.isEmpty()) throw new NotFoundException("Id de asociación incorrecto.");
+    //crear al Voluntario
+    Voluntario voluntario = new Voluntario(usuario, asociacion.get());
+    //persistir
+    voluntarioRepository.save(voluntario);
+    return null;
 
-    public Voluntario crearVoluntario(final int usuarioId) {
+  }
 
-        Usuario usuario = usuarioRepository.findById(usuarioId);
+  @Transactional
+  public void aprobarPublicacion(final int idPublicacion) {
 
-        //si tiene el rol de USUARIO COMUN, entonces:
-        //  cambiar el rol a VOLUNTARIO
+    Publicacion publicacion = publicacionRepository.getById(idPublicacion);
 
-        //agregar Asociacion:
-        //  tiene que venir un id para buscar la Asociacion en BD.
-        Asociacion asociacion = new Asociacion();
+    publicacion.aprobar();
+    publicacionRepository.save(publicacion);
+  }
 
-        //crear al Voluntario
-        Voluntario voluntario = new Voluntario(usuario, asociacion);
-        //persistir
-        voluntarioRepository.save(voluntario);
-        return null;
 
-    }
+  @Transactional
+  public void rechazarPublicacion(final int idPublicacion) {
+    Publicacion publicacion = publicacionRepository.getById(idPublicacion);
 
-    public void aprobarPublicacion(final int idPublicacion) {
-
-        Publicacion publicacion = publicacionRepository.getById(idPublicacion);
-
-        publicacion.aprobar();
-    }
-
-    public void rechazarPublicacion(final int idPublicacion) {
-        Publicacion publicacion = publicacionRepository.getById(idPublicacion);
-
-        publicacion.rechazar();
-    }
+    publicacion.rechazar();
+    publicacionRepository.save(publicacion);
+  }
 }

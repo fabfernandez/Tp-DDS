@@ -28,11 +28,7 @@ public class Usuario {
     private String apellido;
     private String email;
     private String contrasenia;
-    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "usuario_rol",
-            joinColumns = @JoinColumn(name = "usuario_id"),
-            inverseJoinColumns = @JoinColumn(name = "rol_id"))
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Collection<Rol> roles;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Mascota> mascotas;
