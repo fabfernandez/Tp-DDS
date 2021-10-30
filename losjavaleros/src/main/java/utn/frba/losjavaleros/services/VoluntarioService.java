@@ -1,6 +1,5 @@
 package utn.frba.losjavaleros.services;
 
-import java.util.Collection;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -50,14 +49,16 @@ public class VoluntarioService {
     Usuario usuario = usuarioRepository.findById(usuarioId);
     //si tiene el rol de USUARIO COMUN, entonces:
     //  agregarle el rol de Voluntario.
-    Collection<Rol> roles = usuario.getRoles();
+    var roles = usuario.getRoles();
     if (roles.size() == 1 &&
         roles.stream().anyMatch(rol -> rol.getNombre().equals("usuario"))) {
 
       Rol rolVoluntario = rolRepository.getById(3L);
       Assert.isTrue(Objects.equals(rolVoluntario.getNombre(), "voluntario"),
           "El rol id 3L tiene que ser el voluntario.");
+
       roles.add(rolVoluntario);
+      usuario.setRoles(roles);
       usuarioRepository.save(usuario);
     }
 
@@ -67,9 +68,10 @@ public class VoluntarioService {
     if (asociacion.isEmpty()) throw new NotFoundException("Id de asociación incorrecto.");
     //crear al Voluntario
     Voluntario voluntario = new Voluntario(usuario, asociacion.get());
+    //si el user_id ya existe, lanzar excepcion
     //persistir
     voluntarioRepository.save(voluntario);
-    return null;
+    return voluntario;
 
   }
 

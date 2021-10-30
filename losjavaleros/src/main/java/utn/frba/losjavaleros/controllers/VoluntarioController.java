@@ -27,10 +27,10 @@ public class VoluntarioController {
 
         //si el usuario loggeado ya es voluntario, lanzar excepcion.
 
-
         Voluntario voluntario = voluntarioService.crearVoluntario(usuarioId, asociacionId);
 
         return new ResponseEntity(voluntario, HttpStatus.OK);
+        //TODO en version productiva, no devolver al voluntario.
 
     }
     //PUNTO 2.3

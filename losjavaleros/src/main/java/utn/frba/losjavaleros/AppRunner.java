@@ -12,6 +12,7 @@ import utn.frba.losjavaleros.repository.RolRepository;
 import utn.frba.losjavaleros.repository.UsuarioRepository;
 
 import java.util.Collections;
+import java.util.List;
 
 @Log
 @Component
@@ -43,11 +44,27 @@ public class AppRunner implements ApplicationRunner {
             "Test1234.",
             Collections.singletonList(new Rol(1L, "ADMIN")));
         usuarioRepository.save(usuario);
-        log.info("Usuario ADMIN creado.");
+        log.info("ADMINISTRADOR creado.");
       }
 
       Rol rolUsuario = new Rol(2L, "usuario");
-      rolRepository.save(rolUsuario);
+
+      if (usuarioRepository.findByNombreUsuario("fabri") == null) {
+        Usuario fabri = new Usuario(
+            39462320L,
+            "fabri",
+            "fabrizio",
+            "fernandez",
+            "fabrizio.fernandez@emailfalso.com",
+            "Fabrizio1234.",
+            List.of(rolUsuario)
+        );
+        usuarioRepository.save(fabri);
+        log.info("Usuario FABRI creado.");
+      } else {
+        rolRepository.save(rolUsuario);
+      }
+
       Rol rolVoluntario = new Rol(3L, "voluntario");
       rolRepository.save(rolVoluntario);
       log.info("Roles creados.");
@@ -57,6 +74,7 @@ public class AppRunner implements ApplicationRunner {
       log.info("Asociación 'Salvemos a los gatitos' creada.");
 
     } catch (Exception e) {
+      log.warning(e.getMessage());
       log.warning("No se ejecutaron todos los inserts iniciales.");
     }
   }

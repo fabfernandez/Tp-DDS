@@ -28,7 +28,7 @@ public class Usuario {
     private String apellido;
     private String email;
     private String contrasenia;
-    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Collection<Rol> roles;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Mascota> mascotas;

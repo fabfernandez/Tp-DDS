@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +15,7 @@ import utn.frba.losjavaleros.entity.Asociacion;
 @Getter
 @Setter
 @Entity
+//@Table(name = "voluntario", uniqueConstraints = {@UniqueConstraint(columnNames = {"usuario_id", "asociacion_id"})})
 public class Voluntario {
   @Id
   @Column(name = "id", nullable = false)
