@@ -46,7 +46,10 @@ public class VoluntarioService {
   @Transactional
   public Voluntario crearVoluntario(final int usuarioId, final long asociacionId) throws NotFoundException {
 
+    //Si el usuario ya es voluntario no hacer nada
+
     Usuario usuario = usuarioRepository.findById(usuarioId);
+
     //si tiene el rol de USUARIO COMUN, entonces:
     //  agregarle el rol de Voluntario.
     var roles = usuario.getRoles();
