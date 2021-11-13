@@ -7,12 +7,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.WebApplicationContext;
+import lombok.extern.java.Log;
 import utn.frba.losjavaleros.model.Usuario;
 import utn.frba.losjavaleros.repository.UsuarioRepository;
 import utn.frba.losjavaleros.services.UsuarioService;
 
 import javax.annotation.PostConstruct;
 
+@Log
 @Service
 public class CustomUserDetailService implements UserDetailsService {
 
@@ -24,15 +26,16 @@ public class CustomUserDetailService implements UserDetailsService {
 
   @PostConstruct
   public void completeSetup() {
-      usuarioRepository = applicationContext.getBean(UsuarioRepository.class);
+    usuarioRepository = applicationContext.getBean(UsuarioRepository.class);
   }
 
-    @Override
-    public UserDetails loadUserByUsername(final String username) {
-        final Usuario appUser = usuarioRepository.findByNombreUsuario(username);
-        if (appUser == null) {
-            throw new UsernameNotFoundException(username);
-        }
-        return new UsuarioPrincipal(appUser);
+  @Override
+  public UserDetails loadUserByUsername(final String username) {
+    final Usuario appUser = usuarioRepository.findByNombreUsuario(username);
+    if (appUser == null) {
+      log.severe("username " + username + " not found.");
+      throw new UsernameNotFoundException(username);
     }
+    return new UsuarioPrincipal(appUser);
+  }
 }

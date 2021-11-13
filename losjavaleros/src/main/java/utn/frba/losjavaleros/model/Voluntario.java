@@ -1,15 +1,38 @@
 package utn.frba.losjavaleros.model;
 
-import java.util.Collection;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
-public class Voluntario extends Usuario {
-  public Voluntario(Usuario usuario) {
-    super(usuario.getId(), usuario.getDni(), usuario.getNombreUsuario(), usuario.getNombre(), usuario.getApellido(),
-        usuario.getEmail(), usuario.getContrasenia(), usuario.getRoles(), usuario.getMascotas());
+import lombok.Getter;
+import lombok.Setter;
+import utn.frba.losjavaleros.entity.Asociacion;
+
+@Getter
+@Setter
+@Entity
+//@Table(name = "voluntario", uniqueConstraints = {@UniqueConstraint(columnNames = {"usuario_id", "asociacion_id"})})
+public class Voluntario {
+  @Id
+  @Column(name = "id", nullable = false)
+  @GeneratedValue
+  private Long id;
+
+  @OneToOne
+  private Asociacion asociacion;
+
+  @OneToOne
+  private Usuario usuario;
+
+  public Voluntario(final Usuario usuario, final Asociacion asociacion) {
+    this.usuario = usuario;
+    this.asociacion = asociacion;
   }
 
-  public Voluntario(final Integer id, final Long dni, final String nombreUsuario, final String nombre, final String apellido, final String email, final String contrasenia, final Collection<Rol> roles, final List<Mascota> mascotas) {
-    super(id, dni, nombreUsuario, nombre, apellido, email, contrasenia, roles, mascotas);
+  public Voluntario() {
   }
 }
