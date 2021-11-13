@@ -1,16 +1,11 @@
 package utn.frba.losjavaleros.dto;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
-import utn.frba.losjavaleros.model.JoinColumn;
-import utn.frba.losjavaleros.model.JoinTable;
-import utn.frba.losjavaleros.model.ManyToMany;
 import utn.frba.losjavaleros.model.Mascota;
-import utn.frba.losjavaleros.model.OneToMany;
 import utn.frba.losjavaleros.model.Rol;
 import utn.frba.losjavaleros.model.Usuario;
 

@@ -1,10 +1,9 @@
 package utn.frba.losjavaleros.controllers;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import lombok.extern.slf4j.Slf4j;
 import utn.frba.losjavaleros.dto.UsuarioDto;
 import utn.frba.losjavaleros.model.Usuario;
 import utn.frba.losjavaleros.model.exception.InvalidPasswordException;
@@ -14,7 +13,7 @@ import utn.frba.losjavaleros.services.UsuarioService;
 import java.util.Map;
 
 
-
+@Slf4j
 @Transactional
 @RestController
 @RequestMapping("/api")

@@ -1,9 +1,5 @@
 package utn.frba.losjavaleros.services;
 
-import java.util.Objects;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,11 +19,12 @@ public class UsuarioService {
 
     usuario.setDni(nuevoUsuario.getDni());
     usuario.setNombreUsuario(nuevoUsuario.getNombreUsuario());
-    usuario.setNombre(nuevoUsuario.getName());
+    usuario.setNombre(nuevoUsuario.getNombre());
     usuario.setApellido(nuevoUsuario.getApellido());
     usuario.setEmail(nuevoUsuario.getEmail());
     usuario.setContrasenia(nuevoUsuario.getContrasenia());
-    usuario.setRoles(nuevoUsuario.getRoles());
+    //agarrar el rol de la BD
+    //usuario.setRoles(nuevoUsuario.getRoles());
 
     usuarioRepository.save(usuario);
   }
