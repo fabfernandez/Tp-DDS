@@ -22,7 +22,7 @@ public class VoluntarioController {
     @PostMapping("/serVoluntario/{usuarioId}/asociacion/{asociacionId}")
     public ResponseEntity serVoluntario(@PathVariable final int usuarioId, @PathVariable final long asociacionId) throws NotFoundException {
 
-        //No puede pasarse el usario ID por parametro, no tiene seguridad.
+        //No puede pasarse el usario ID por parametro, no sería nada seguro.
         //TODO Obtener el ID del usuario logeado.
 
         //si el usuario loggeado ya es voluntario, lanzar excepcion.
@@ -37,7 +37,7 @@ public class VoluntarioController {
     @PostMapping("/aprobarPublicacion/{idPublicacion}")
     public ResponseEntity aprobarPublicacion(@PathVariable final int idPublicacion) {
 
-        //probar que el usuario loggeado es un voluntario.
+        //probar que el usuario logeado es un voluntario.
 
         voluntarioService.aprobarPublicacion(idPublicacion);
 
@@ -47,6 +47,8 @@ public class VoluntarioController {
     //PUNTO 2.3
     @PostMapping("/rechazarPublicacion/{idPublicacion}")
     public ResponseEntity rechazarPublicacion(@PathVariable final int idPublicacion) {
+
+        //probar que el usuario logeado es un voluntario.
 
         voluntarioService.rechazarPublicacion(idPublicacion);
 

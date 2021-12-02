@@ -10,6 +10,7 @@ import utn.frba.losjavaleros.controllers.MascotaController;
 import utn.frba.losjavaleros.dto.MascotaDto;
 import utn.frba.losjavaleros.model.Mascota;
 import utn.frba.losjavaleros.model.Usuario;
+import utn.frba.losjavaleros.model.exception.InvalidPasswordException;
 import utn.frba.losjavaleros.services.MascotaService;
 
 class entrega1punto1Test {
@@ -24,9 +25,9 @@ class entrega1punto1Test {
 
 
   @BeforeEach
-  void setUp() {
-    usuarioSinMascotas = new Usuario(1, 123L, "usuario", "nombre", "apellido", "email",
-        "contrasenia", null, new ArrayList<>());
+  void setUp() throws InvalidPasswordException {
+    usuarioSinMascotas = new Usuario(123L, "usuario", "nombre", "apellido", "email",
+        "contrasenia", new ArrayList<>());
 
 	/*
 	 * mascotaDto = new MascotaDto("nombre", "apodo", 5, "perro", "macho",
