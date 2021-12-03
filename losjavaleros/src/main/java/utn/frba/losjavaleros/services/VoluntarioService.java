@@ -56,7 +56,7 @@ public class VoluntarioService {
     if (roles.size() == 1 &&
         roles.stream().anyMatch(rol -> rol.getNombre().equals("usuario"))) {
 
-      Rol rolVoluntario = rolRepository.getById(3L);
+      Rol rolVoluntario = rolRepository.findById(3L).get();
       Assert.isTrue(Objects.equals(rolVoluntario.getNombre(), "voluntario"),
           "El rol id 3L tiene que ser el voluntario.");
 

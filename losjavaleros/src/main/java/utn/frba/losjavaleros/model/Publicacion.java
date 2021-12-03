@@ -1,5 +1,6 @@
 package utn.frba.losjavaleros.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +17,7 @@ import javax.persistence.OneToOne;
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
 public class Publicacion {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +25,7 @@ public class Publicacion {
   private String nombre;
   private String apellido;
   private LocalDate fechaNacimiento;
-  private Integer dni;
+  private Long dni;
   private String direccion;
   @OneToOne
   private Contacto contacto;
@@ -34,6 +36,25 @@ public class Publicacion {
   private Double coordenadasY;
 
   private EstadoPublicacion estadoPublicacion;
+
+  //ORM requiere este constructor vacío.
+  public Publicacion() {
+  }
+
+  public Publicacion(final Usuario usuario, final List<Foto> fotos, final String descripcion, final Double coordenadasX,
+                     final Double coordenadasY, final EstadoPublicacion estadoPublicacion) {
+    this.nombre = usuario.getNombre();
+    this.apellido = usuario.getApellido();
+    this.fechaNacimiento = usuario.getFechaNacimiento();
+    this.dni = usuario.getDni();
+    this.direccion = usuario.getDireccion();
+    this.contacto = usuario.getContactoPrincipal();
+    this.fotos = fotos;
+    this.descripcion = descripcion;
+    this.coordenadasX = coordenadasX;
+    this.coordenadasY = coordenadasY;
+    this.estadoPublicacion = estadoPublicacion;
+  }
 
   public void aprobar() {
     this.estadoPublicacion = EstadoPublicacion.APROBADA;

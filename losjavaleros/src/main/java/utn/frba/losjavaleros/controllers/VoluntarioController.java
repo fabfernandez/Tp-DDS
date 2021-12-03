@@ -22,7 +22,7 @@ public class VoluntarioController {
     @PostMapping("/serVoluntario/{usuarioId}/asociacion/{asociacionId}")
     public ResponseEntity serVoluntario(@PathVariable final int usuarioId, @PathVariable final long asociacionId) throws NotFoundException {
 
-        //No puede pasarse el usario ID por parametro, no tiene seguridad.
+        //No puede pasarse el usario ID por parametro, no sería nada seguro.
         //TODO Obtener el ID del usuario logeado.
 
         //si el usuario loggeado ya es voluntario, lanzar excepcion.
