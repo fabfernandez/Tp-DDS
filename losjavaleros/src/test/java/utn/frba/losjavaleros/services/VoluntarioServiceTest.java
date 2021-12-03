@@ -3,6 +3,7 @@ package utn.frba.losjavaleros.services;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -28,6 +29,7 @@ class VoluntarioServiceTest {
 
   }
 
+  @Disabled
   @Test
   @DisplayName("Nuevo Voluntario.")
   void crearVoluntario() throws NotFoundException {
@@ -46,10 +48,12 @@ class VoluntarioServiceTest {
 
   }
 
+  @Disabled
   @Test
   void aprobarPublicacion() {
   }
 
+  @Disabled
   @Test
   void rechazarPublicacion() {
   }

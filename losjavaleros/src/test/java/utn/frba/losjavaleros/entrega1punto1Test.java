@@ -3,6 +3,7 @@ package utn.frba.losjavaleros;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -38,12 +39,14 @@ class entrega1punto1Test {
 
   }
 
+  @Disabled
   @Test
   @DisplayName("Se debe permitir el registro de mascotas teniendo en cuenta que una persona puede tener más de una.")
   void consigna() {
 
   }
 
+  @Disabled
   @Test
   @DisplayName("Registrar 1 mascota a un usuario sin mascotas.")
   void registrar1mascota() {
@@ -51,12 +54,14 @@ class entrega1punto1Test {
 
   }
 
+  @Disabled
   @Test
   @DisplayName("Registrar 2 mascotas a un usuario sin mascotas.")
   void registrar2mascotas() {
 
   }
 
+  @Disabled
   @Test
   @DisplayName("Registrar 2 mascotas a un usuario con mascotas")
   void registrar2mascotasMas() {
