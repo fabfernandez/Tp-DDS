@@ -37,7 +37,7 @@ public class VoluntarioController {
     @PostMapping("/aprobarPublicacion/{idPublicacion}")
     public ResponseEntity aprobarPublicacion(@PathVariable final int idPublicacion) {
 
-        //probar que el usuario loggeado es un voluntario.
+        //todo probar que el usuario loggeado es un voluntario.
 
         voluntarioService.aprobarPublicacion(idPublicacion);
 
@@ -47,6 +47,8 @@ public class VoluntarioController {
     //PUNTO 2.3
     @PostMapping("/rechazarPublicacion/{idPublicacion}")
     public ResponseEntity rechazarPublicacion(@PathVariable final int idPublicacion) {
+
+        //todo probar que el usuario loggeado es un voluntario.
 
         voluntarioService.rechazarPublicacion(idPublicacion);
 
