@@ -12,7 +12,7 @@ import utn.frba.losjavaleros.services.VoluntarioService;
 @RestController
 public class VoluntarioController {
 
-    private VoluntarioService voluntarioService;
+    private final VoluntarioService voluntarioService;
 
     public VoluntarioController(final VoluntarioService voluntarioService) {
         this.voluntarioService = voluntarioService;
@@ -20,7 +20,8 @@ public class VoluntarioController {
 
     //PUNTO 2.3
     @PostMapping("/serVoluntario/{usuarioId}/asociacion/{asociacionId}")
-    public ResponseEntity serVoluntario(@PathVariable final int usuarioId, @PathVariable final long asociacionId) throws NotFoundException {
+    public ResponseEntity<Voluntario> serVoluntario(@PathVariable final int usuarioId,
+    @PathVariable final long asociacionId) throws NotFoundException {
 
         //No puede pasarse el usario ID por parametro, no sería nada seguro.
         //TODO Obtener el ID del usuario logeado.
@@ -29,30 +30,30 @@ public class VoluntarioController {
 
         Voluntario voluntario = voluntarioService.crearVoluntario(usuarioId, asociacionId);
 
-        return new ResponseEntity(voluntario, HttpStatus.OK);
+        return new ResponseEntity<>(voluntario, HttpStatus.OK);
         //TODO en version productiva, no devolver al voluntario.
 
     }
     //PUNTO 2.3
     @PostMapping("/aprobarPublicacion/{idPublicacion}")
-    public ResponseEntity aprobarPublicacion(@PathVariable final int idPublicacion) {
+    public ResponseEntity<HttpStatus> aprobarPublicacion(@PathVariable final int idPublicacion) {
 
         //todo probar que el usuario loggeado es un voluntario.
 
         voluntarioService.aprobarPublicacion(idPublicacion);
 
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
 
     }
     //PUNTO 2.3
     @PostMapping("/rechazarPublicacion/{idPublicacion}")
-    public ResponseEntity rechazarPublicacion(@PathVariable final int idPublicacion) {
+    public ResponseEntity<HttpStatus> rechazarPublicacion(@PathVariable final int idPublicacion) {
 
         //todo probar que el usuario loggeado es un voluntario.
 
         voluntarioService.rechazarPublicacion(idPublicacion);
 
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
 
     }
 
