@@ -5,11 +5,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import lombok.extern.slf4j.Slf4j;
 import utn.frba.losjavaleros.dto.UsuarioDto;
+import utn.frba.losjavaleros.model.Rol;
 import utn.frba.losjavaleros.model.Usuario;
 import utn.frba.losjavaleros.model.exception.InvalidPasswordException;
 import utn.frba.losjavaleros.repository.UsuarioRepository;
 import utn.frba.losjavaleros.services.UsuarioService;
 
+import java.security.Principal;
+import java.util.Collection;
 import java.util.Map;
 
 
@@ -57,6 +60,22 @@ public class UsuarioController {
 
 		}
 		return ResponseEntity.ok("Usuario registrado.");
+
+	}
+
+	@GetMapping( "/email")
+	@ResponseBody
+	public String currentUserName(Principal principal) {
+		return principal.getName();
+
+	}
+
+	@GetMapping( "/rol")
+	@ResponseBody
+	public Collection<Rol> getRol(Principal principal) {
+		String nombreUsuario = principal.getName();
+		Usuario usuario = usuarioRepository.findByEmail(nombreUsuario);
+		return usuario.getRoles();
 
 	}
 
